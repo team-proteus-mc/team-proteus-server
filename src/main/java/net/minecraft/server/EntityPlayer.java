@@ -7,8 +7,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.ChunkCompressionThread;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 import org.bukkit.event.inventory.ChestOpenedEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 
 import java.util.*;
 
@@ -447,6 +450,13 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void b(int i, int j, int k) {
         this.ai();
+
+        // Poseidon start
+        InventoryOpenEvent event = new InventoryOpenEvent(((HumanEntity) getBukkitEntity()).getOpenInventory());
+        world.getServer().getPluginManager().callEvent(event);
+        if (event.isCancelled()) return;
+        // Poseidon end
+
         this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bO, 1, "Crafting", 9));
         this.activeContainer = new ContainerWorkbench(this.inventory, this.world, i, j, k);
         this.activeContainer.windowId = this.bO;
@@ -457,8 +467,9 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.ai();
 
         // Poseidon start
-        ChestOpenedEvent event = new ChestOpenedEvent((org.bukkit.entity.Player) this.getBukkitEntity(), iinventory.getContents());
-        this.world.getServer().getPluginManager().callEvent(event);
+        //ChestOpenedEvent event = new ChestOpenedEvent((org.bukkit.entity.Player) this.getBukkitEntity(), iinventory.getContents());
+        InventoryOpenEvent event = new InventoryOpenEvent(((HumanEntity) getBukkitEntity()).getOpenInventory());
+        world.getServer().getPluginManager().callEvent(event);
         if (event.isCancelled()) return;
         // Poseidon end
 
@@ -470,6 +481,13 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void a(TileEntityFurnace tileentityfurnace) {
         this.ai();
+
+        // Poseidon start
+        InventoryOpenEvent event = new InventoryOpenEvent(((HumanEntity) getBukkitEntity()).getOpenInventory());
+        world.getServer().getPluginManager().callEvent(event);
+        if (event.isCancelled()) return;
+        // Poseidon end
+
         this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bO, 2, tileentityfurnace.getName(), tileentityfurnace.getSize()));
         this.activeContainer = new ContainerFurnace(this.inventory, tileentityfurnace);
         this.activeContainer.windowId = this.bO;
@@ -478,6 +496,13 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
 
     public void a(TileEntityDispenser tileentitydispenser) {
         this.ai();
+
+        // Poseidon start
+        InventoryOpenEvent event = new InventoryOpenEvent(((HumanEntity) getBukkitEntity()).getOpenInventory());
+        world.getServer().getPluginManager().callEvent(event);
+        if (event.isCancelled()) return;
+        // Poseidon end
+
         this.netServerHandler.sendPacket(new Packet100OpenWindow(this.bO, 3, tileentitydispenser.getName(), tileentitydispenser.getSize()));
         this.activeContainer = new ContainerDispenser(this.inventory, tileentitydispenser);
         this.activeContainer.windowId = this.bO;
@@ -509,6 +534,11 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     }
 
     public void y() {
+        // Poseidon start
+        InventoryCloseEvent event = new InventoryCloseEvent(((HumanEntity) getBukkitEntity()).getOpenInventory());
+        world.getServer().getPluginManager().callEvent(event);
+        // Poseidon end
+
         this.netServerHandler.sendPacket(new Packet101CloseWindow(this.activeContainer.windowId));
         this.A();
     }

@@ -3,11 +3,14 @@ package org.bukkit.craftbukkit.inventory;
 import net.minecraft.server.IInventory;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.InventoryTransactionEvent;
 import org.bukkit.event.inventory.InventoryTransactionType;
+import org.bukkit.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class CraftInventory implements org.bukkit.inventory.Inventory {
     protected IInventory inventory;
@@ -62,6 +65,14 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
 
     public void setItem(int index, ItemStack item) {
         getInventory().setItem(index, (item == null ? null : new net.minecraft.server.ItemStack(item.getTypeId(), item.getAmount(), item.getDurability())));
+    }
+
+    public List<HumanEntity> getViewers() {
+        return null; // TODO
+    }
+
+    public InventoryType getType() {
+        return null; // TODO
     }
 
     public boolean contains(int materialId) {
