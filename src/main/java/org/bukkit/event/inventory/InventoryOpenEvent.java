@@ -5,6 +5,8 @@ import org.bukkit.inventory.InventoryView;
 
 /**
  * Called when a player opens an inventory
+ * <br>
+ * Note that this event does not fire when the player opens their player inventory.
  */
 public class InventoryOpenEvent extends InventoryEvent implements Cancellable {
     private boolean cancelled = false;

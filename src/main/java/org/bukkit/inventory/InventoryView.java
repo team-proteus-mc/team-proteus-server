@@ -7,13 +7,6 @@ import org.bukkit.entity.HumanEntity;
  * (whose inventory may or may not be one of the two)
  */
 public abstract class InventoryView {
-    private InventoryType type;
-    private HumanEntity player;
-
-    protected InventoryView(InventoryType type, HumanEntity player) {
-        this.type = type;
-        this.player = player;
-    }
 
     /**
      * Returns the upper inventory involved in this transaction

@@ -1,5 +1,9 @@
 package net.minecraft.server;
 
+import org.bukkit.craftbukkit.inventory.CraftInventoryCrafting;
+import org.bukkit.craftbukkit.inventory.CraftInventoryView;
+import org.bukkit.entity.HumanEntity;
+
 public class ContainerWorkbench extends Container {
 
     public InventoryCrafting craftInventory = new InventoryCrafting(this, 3, 3);
@@ -8,12 +12,17 @@ public class ContainerWorkbench extends Container {
     private int h;
     private int i;
     private int j;
+    // Poseidon start
+    private CraftInventoryView view = null;
+    private InventoryPlayer player;
+    // Poseidon end
 
     public ContainerWorkbench(InventoryPlayer inventoryplayer, World world, int i, int j, int k) {
         this.c = world;
         this.h = i;
         this.i = j;
         this.j = k;
+        this.player = inventoryplayer;
         this.a((Slot) (new SlotResult(inventoryplayer.d, this.craftInventory, this.resultInventory, 0, 124, 35)));
 
         int l;
@@ -100,5 +109,14 @@ public class ContainerWorkbench extends Container {
         }
 
         return itemstack;
+    }
+
+    // Poseidon
+    @Override
+    public CraftInventoryView getBukkitView() {
+        if (view != null) return view;
+        CraftInventoryCrafting inventory = new CraftInventoryCrafting(craftInventory, resultInventory);
+        view = new CraftInventoryView((HumanEntity) this.player.d.getBukkitEntity(), inventory, this);
+        return view;
     }
 }

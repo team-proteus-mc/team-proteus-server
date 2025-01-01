@@ -9,6 +9,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.block.CraftBlock;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.AnimalTamer;
 import org.bukkit.entity.CreatureType;
@@ -23,6 +24,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.entity.EntityTameEvent;
 import org.bukkit.event.entity.ItemDespawnEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerEvent;
@@ -261,6 +263,22 @@ public class CraftEventFactory {
         ItemDespawnEvent event = new ItemDespawnEvent(entity, entity.getLocation());
 
         ((CraftServer) entity.getServer()).getPluginManager().callEvent(event);
+        return event;
+    }
+
+    /**
+     * InventoryOpenEvent
+     */
+    public static InventoryOpenEvent callInventoryOpenEvent(EntityPlayer player, Container container) {
+        if (player.activeContainer != player.defaultContainer) {
+            player.netServerHandler.a(new Packet101CloseWindow(player.activeContainer.windowId));
+        }
+
+        CraftPlayer craftPlayer = (CraftPlayer) player.getBukkitEntity();
+        player.activeContainer.transferTo(container, craftPlayer);
+
+        InventoryOpenEvent event = new InventoryOpenEvent(container.getBukkitView());
+        Bukkit.getPluginManager().callEvent(event);
         return event;
     }
 }

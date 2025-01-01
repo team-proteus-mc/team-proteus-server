@@ -20,6 +20,8 @@ import org.bukkit.entity.StorageMinecart;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.packet.PacketReceivedEvent;
 import org.bukkit.event.player.*;
 
@@ -1079,6 +1081,12 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     public void a(Packet101CloseWindow packet101closewindow) {
         if (this.player.dead) return; // CraftBukkit
 
+        // Poseidon start
+        InventoryCloseEvent event = new InventoryCloseEvent(this.player.activeContainer.getBukkitView());
+        server.getPluginManager().callEvent(event);
+        this.player.activeContainer.transferTo(this.player.defaultContainer, getPlayer());
+        // Poseidon end
+
         this.player.A();
     }
 
@@ -1094,7 +1102,12 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         if (this.player.activeContainer.windowId == packet102windowclick.a && this.player.activeContainer.c(this.player)) {
             ItemStack itemstack = this.player.activeContainer.a(packet102windowclick.b, packet102windowclick.c, packet102windowclick.f, this.player);
 
-            if (ItemStack.equals(packet102windowclick.e, itemstack)) {
+            // Poseidon start
+            InventoryClickEvent clickEvent = new InventoryClickEvent(player.activeContainer.getBukkitView(), packet102windowclick.b, packet102windowclick.c != 0, packet102windowclick.f);
+            server.getPluginManager().callEvent(clickEvent);
+            // Poseidon end
+
+            if (!clickEvent.isCancelled() && ItemStack.equals(packet102windowclick.e, itemstack)) {
                 this.player.netServerHandler.sendPacket(new Packet106Transaction(packet102windowclick.a, packet102windowclick.d, true));
                 this.player.h = true;
                 this.player.activeContainer.a();

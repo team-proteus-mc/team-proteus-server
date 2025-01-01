@@ -3,8 +3,8 @@ package net.minecraft.server;
 public class InventoryLargeChest implements IInventory {
 
     private String a;
-    private IInventory b;
-    private IInventory c;
+    public IInventory b; // Poseidon - private -> public
+    public IInventory c; // Poseidon - private -> public
 
     // CraftBukkit start
     public ItemStack[] getContents() {

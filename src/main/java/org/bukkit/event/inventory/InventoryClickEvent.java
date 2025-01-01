@@ -9,12 +9,28 @@ import org.bukkit.inventory.ItemStack;
  */
 public class InventoryClickEvent extends InventoryEvent implements Cancellable {
     private boolean cancelled = false;
-    private boolean rightClick, shiftClick;
+    private boolean rightClick;
+    private boolean shiftClick;
     private int rawSlot;
     private ItemStack current = null;
 
-    public InventoryClickEvent(InventoryView transaction) {
+    public InventoryClickEvent(InventoryView transaction, int slot, boolean right, boolean shift) {
         super(Type.INVENTORY_CLICK, transaction);
+        this.rawSlot = slot;
+        this.rightClick = right;
+        this.shiftClick = shift;
+    }
+
+    public int getRawSlot() {
+        return rawSlot;
+    }
+
+    public boolean isRightClick() {
+        return rightClick;
+    }
+
+    public boolean isShiftClick() {
+        return shiftClick;
     }
 
     public boolean isCancelled() {

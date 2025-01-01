@@ -2,9 +2,13 @@
 package org.bukkit.craftbukkit.entity;
 
 import net.minecraft.server.EntityHuman;
+import net.minecraft.server.EntityPlayer;
+import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.inventory.CraftInventoryPlayer;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.permissions.PermissibleBase;
@@ -46,12 +50,40 @@ public class CraftHumanEntity extends CraftLivingEntity implements HumanEntity {
         return inventory;
     }
 
+    public InventoryView getOpenInventory() {
+        return null; // TODO
+    }
+
+    public InventoryView openInventory(Inventory inventory) {
+        return null; // TODO
+    }
+
+    public InventoryView openWorkbench(Location location, boolean force) {
+        return null; // TODO
+    }
+
+    public void openInventory(InventoryView inventory) {
+        // TODO
+    }
+
+    public void closeInventory() {
+        ((EntityPlayer) getHandle()).y();
+    }
+
     public ItemStack getItemInHand() {
         return getInventory().getItemInHand();
     }
 
     public void setItemInHand(ItemStack item) {
         getInventory().setItemInHand(item);
+    }
+
+    public ItemStack getItemOnCursor() {
+        return null; // TODO
+    }
+
+    public void setItemOnCursor(ItemStack item) {
+        // TODO
     }
 
     @Override

@@ -1,18 +1,19 @@
 package org.bukkit.craftbukkit.inventory;
 
-import net.minecraft.server.IInventory;
+import net.minecraft.server.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.InventoryTransactionEvent;
 import org.bukkit.event.inventory.InventoryTransactionType;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class CraftInventory implements org.bukkit.inventory.Inventory {
+public class CraftInventory implements Inventory {
     protected IInventory inventory;
 
     public CraftInventory(IInventory inventory) {
@@ -68,11 +69,21 @@ public class CraftInventory implements org.bukkit.inventory.Inventory {
     }
 
     public List<HumanEntity> getViewers() {
-        return null; // TODO
+        return inventory.getViewers();
     }
 
     public InventoryType getType() {
-        return null; // TODO
+        if (inventory instanceof TileEntityDispenser) {
+            return InventoryType.DISPENSER;
+        } else if (inventory instanceof TileEntityFurnace) {
+            return InventoryType.FURNACE;
+        } else if (inventory instanceof InventoryCrafting) {
+            return inventory.getSize() >= 9 ? InventoryType.WORKBENCH : InventoryType.CRAFTING;
+        } else if (inventory instanceof InventoryPlayer) {
+            return InventoryType.PLAYER;
+        } else {
+            return InventoryType.CHEST;
+        }
     }
 
     public boolean contains(int materialId) {
