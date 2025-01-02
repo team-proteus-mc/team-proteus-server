@@ -856,7 +856,7 @@ public abstract class Event implements Serializable {
          */
         DENY,
         /**
-         * Neither deny nor allow the event.
+         * Neither deny nor alloweven the event.
          * The server will proceed with its normal handling.
          */
         DEFAULT,

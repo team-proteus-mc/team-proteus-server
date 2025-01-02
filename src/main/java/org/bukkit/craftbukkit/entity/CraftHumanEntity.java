@@ -6,6 +6,7 @@ import net.minecraft.server.EntityPlayer;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.inventory.CraftInventoryPlayer;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
@@ -51,7 +52,7 @@ public class CraftHumanEntity extends CraftLivingEntity implements HumanEntity {
     }
 
     public InventoryView getOpenInventory() {
-        return null; // TODO
+        return getHandle().activeContainer.getBukkitView();
     }
 
     public InventoryView openInventory(Inventory inventory) {
@@ -79,11 +80,12 @@ public class CraftHumanEntity extends CraftLivingEntity implements HumanEntity {
     }
 
     public ItemStack getItemOnCursor() {
-        return null; // TODO
+        return new CraftItemStack(getHandle().inventory.j());
     }
 
     public void setItemOnCursor(ItemStack item) {
-        // TODO
+        getHandle().inventory.b(new net.minecraft.server.ItemStack(item.getTypeId(), item.getAmount(), item.getDurability()));
+        ((EntityPlayer) getHandle()).z();
     }
 
     @Override
