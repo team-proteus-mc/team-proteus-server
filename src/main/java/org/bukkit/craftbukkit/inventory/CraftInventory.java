@@ -33,7 +33,8 @@ public class CraftInventory implements Inventory {
     }
 
     public ItemStack getItem(int index) {
-        return new CraftItemStack(getInventory().getItem(index));
+        net.minecraft.server.ItemStack item = getInventory().getItem(index);
+        return item == null ? null : new CraftItemStack(item);
     }
 
     public ItemStack[] getContents() {
@@ -48,18 +49,17 @@ public class CraftInventory implements Inventory {
     }
 
     public void setContents(ItemStack[] items) {
-        if (getInventory().getContents().length != items.length) {
-            throw new IllegalArgumentException("Invalid inventory size; expected " + getInventory().getContents().length + " and got " + items.length); // Poseidon
+        if (getInventory().getContents().length < items.length) {
+            throw new IllegalArgumentException("Invalid inventory size; expected " + getInventory().getContents().length + " or less and got " + items.length); // Poseidon
         }
 
         net.minecraft.server.ItemStack[] mcItems = getInventory().getContents();
 
-        for (int i = 0; i < items.length; i++) {
-            ItemStack item = items[i];
-            if (item == null || item.getTypeId() <= 0) {
+        for (int i = 0; i < mcItems.length; i++) {
+            if (i >= items.length) {
                 mcItems[i] = null;
             } else {
-                mcItems[i] = new net.minecraft.server.ItemStack(item.getTypeId(), item.getAmount(), item.getDurability());
+                mcItems[i] = items[i] == null ? null : new net.minecraft.server.ItemStack(items[i].getTypeId(), items[i].getAmount(), items[i].getDurability());
             }
         }
     }
@@ -81,6 +81,10 @@ public class CraftInventory implements Inventory {
             return inventory.getSize() >= 9 ? InventoryType.WORKBENCH : InventoryType.CRAFTING;
         } else if (inventory instanceof InventoryPlayer) {
             return InventoryType.PLAYER;
+        } else if (inventory instanceof InventoryLargeChest) {
+            return InventoryType.LARGE_CHEST;
+        } else if (inventory instanceof CraftInventoryCustom.MinecraftInventory) {
+            return InventoryType.CUSTOM;
         } else {
             return InventoryType.CHEST;
         }

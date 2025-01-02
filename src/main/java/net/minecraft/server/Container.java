@@ -18,6 +18,7 @@ public abstract class Container {
     private short a = 0;
     protected List listeners = new ArrayList();
     private Set b = new HashSet();
+    public boolean checkReachable = true; // Poseidon
 
     public Container() {}
 

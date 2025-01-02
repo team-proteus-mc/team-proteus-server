@@ -3,8 +3,11 @@ package org.bukkit;
 import com.avaje.ebean.config.ServerConfig;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryType;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.map.MapView;
 import org.bukkit.plugin.PluginManager;
@@ -467,5 +470,32 @@ public interface Server {
      * @return Set containing banned players
      */
     public Set<OfflinePlayer> getBannedPlayers();
+
+    /**
+     * Creates an empty inventory of the specified type. If the type is {@link InventoryType#CHEST},
+     * the new inventory has a size of 27; otherwise the new inventory has the normal size for
+     * its type.
+     * @param owner The holder of the inventory; can be null if there's no holder.
+     * @param type The type of inventory to create.
+     * @return The new inventory.
+     */
+    Inventory createInventory(HumanEntity owner, InventoryType type);
+    /**
+     * Creates an empty inventory of type {@link InventoryType#CHEST} with the specified size.
+     * @param owner The holder of the inventory; can be null if there's no holder.
+     * @param size The size of inventory to create; must be a multiple of 9.
+     * @return The new inventory.
+     * @throws IllegalArgumentException If the size is not a multiple of 9.
+     */
+    Inventory createInventory(HumanEntity owner, int size);
+    /**
+     * Creates an empty inventory of type {@link InventoryType#CHEST} with the specified size and title.
+     * @param owner The holder of the inventory; can be null if there's no holder.
+     * @param size The size of inventory to create; must be a multiple of 9.
+     * @param title The title of the inventory, to be displayed when it is viewed.
+     * @return The new inventory.
+     * @throws IllegalArgumentException If the size is not a multiple of 9.
+     */
+    Inventory createInventory(HumanEntity owner, int size, String title);
 
 }

@@ -4,8 +4,11 @@ import com.avaje.ebean.config.ServerConfig;
 import org.bukkit.World.Environment;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryType;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.map.MapView;
 import org.bukkit.plugin.PluginManager;
@@ -260,5 +263,17 @@ public final class Bukkit {
 
     public static void reloadWhitelist() {
         server.reloadWhitelist();
+    }
+
+    public static Inventory createInventory(HumanEntity owner, InventoryType type) {
+        return server.createInventory(owner, type);
+    }
+
+    public static Inventory createInventory(HumanEntity owner, int size) {
+        return server.createInventory(owner, size);
+    }
+
+    public static Inventory createInventory(HumanEntity owner, int size, String title) {
+        return server.createInventory(owner, size, title);
     }
 }

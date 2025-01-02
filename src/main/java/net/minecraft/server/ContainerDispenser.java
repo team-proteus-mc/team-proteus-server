@@ -37,6 +37,7 @@ public class ContainerDispenser extends Container {
     }
 
     public boolean b(EntityHuman entityhuman) {
+        if (!this.checkReachable) return true; // Poseidon
         return this.a.a_(entityhuman);
     }
 

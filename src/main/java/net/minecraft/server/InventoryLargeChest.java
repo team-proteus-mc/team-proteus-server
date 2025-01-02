@@ -1,10 +1,16 @@
 package net.minecraft.server;
 
+import org.bukkit.entity.HumanEntity;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class InventoryLargeChest implements IInventory {
 
     private String a;
     public IInventory b; // Poseidon - private -> public
     public IInventory c; // Poseidon - private -> public
+    private List<HumanEntity> viewers = new ArrayList<HumanEntity>(); // Poseidon
 
     // CraftBukkit start
     public ItemStack[] getContents() {
@@ -58,4 +64,22 @@ public class InventoryLargeChest implements IInventory {
     public boolean a_(EntityHuman entityhuman) {
         return this.b.a_(entityhuman) && this.c.a_(entityhuman);
     }
+
+    // Poseidon start
+    public List<HumanEntity> getViewers() {
+        return viewers;
+    }
+
+    public void onOpen(HumanEntity player) {
+        b.onOpen(player);
+        c.onOpen(player);
+        viewers.add(player);
+    }
+
+    public void onClose(HumanEntity player) {
+        b.onClose(player);
+        c.onClose(player);
+        viewers.remove(player);
+    }
+    // Poseidon end
 }

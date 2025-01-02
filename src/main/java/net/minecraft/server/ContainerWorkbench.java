@@ -6,8 +6,8 @@ import org.bukkit.entity.HumanEntity;
 
 public class ContainerWorkbench extends Container {
 
-    public InventoryCrafting craftInventory = new InventoryCrafting(this, 3, 3);
-    public IInventory resultInventory = new InventoryCraftResult();
+    public InventoryCrafting craftInventory;
+    public IInventory resultInventory;
     private World c;
     private int h;
     private int i;
@@ -18,6 +18,9 @@ public class ContainerWorkbench extends Container {
     // Poseidon end
 
     public ContainerWorkbench(InventoryPlayer inventoryplayer, World world, int i, int j, int k) {
+        this.resultInventory = new InventoryCraftResult();
+        this.craftInventory = new InventoryCrafting(this, 3, 3);
+        this.craftInventory.resultInventory = this.resultInventory;
         this.c = world;
         this.h = i;
         this.i = j;
@@ -74,6 +77,7 @@ public class ContainerWorkbench extends Container {
     }
 
     public boolean b(EntityHuman entityhuman) {
+        if (!this.checkReachable) return true; // Poseidon
         return this.c.getTypeId(this.h, this.i, this.j) != Block.WORKBENCH.id ? false : entityhuman.e((double) this.h + 0.5D, (double) this.i + 0.5D, (double) this.j + 0.5D) <= 64.0D;
     }
 

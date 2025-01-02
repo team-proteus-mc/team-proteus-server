@@ -1,11 +1,12 @@
 package org.bukkit.craftbukkit.inventory;
 
-import net.minecraft.server.*;
+import net.minecraft.server.Container;
 import org.bukkit.craftbukkit.entity.CraftHumanEntity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryType;
 import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.ItemStack;
 
 public class CraftInventoryView extends InventoryView {
 
@@ -33,5 +34,28 @@ public class CraftInventoryView extends InventoryView {
 
     public HumanEntity getPlayer() {
         return player;
+    }
+
+    @Override
+    public void setItem(int slot, org.bukkit.inventory.ItemStack item) {
+        if (slot != -999) {
+            container.b(slot).c(item == null ? null : new net.minecraft.server.ItemStack(item.getTypeId(), item.getAmount(), item.getDurability()));
+        }
+    }
+
+    @Override
+    public ItemStack getItem(int slot) {
+        if (slot == -999) {
+            return null;
+        }
+        return new CraftItemStack(container.b(slot).getItem());
+    }
+
+    public boolean isInTop(int rawSlot) {
+        return rawSlot < inventory.getSize();
+    }
+
+    public Container getHandle() {
+        return container;
     }
 }

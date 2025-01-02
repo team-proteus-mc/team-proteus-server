@@ -1,17 +1,16 @@
 
 package org.bukkit.craftbukkit.entity;
 
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.EntityPlayer;
+import net.minecraft.server.*;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.CraftServer;
-import org.bukkit.craftbukkit.inventory.CraftInventoryPlayer;
-import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.inventory.*;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
+import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.inventory.*;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.permissions.PermissibleBase;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionAttachment;
@@ -56,15 +55,65 @@ public class CraftHumanEntity extends CraftLivingEntity implements HumanEntity {
     }
 
     public InventoryView openInventory(Inventory inventory) {
-        return null; // TODO
+        InventoryType type = inventory.getType();
+        CraftInventory inv = (CraftInventory) inventory;
+
+        switch (type) {
+            case CHEST:
+            case LARGE_CHEST:
+            case CUSTOM:
+                getHandle().a(inv.getInventory());
+                break;
+            case DISPENSER:
+                getHandle().a((TileEntityDispenser) inv.getInventory());
+                break;
+            case FURNACE:
+                getHandle().a((TileEntityFurnace) inv.getInventory());
+                break;
+            case WORKBENCH:
+                Location loc = getLocation();
+                getHandle().b(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
+                break;
+            case PLAYER:
+            case CRAFTING:
+                throw new IllegalArgumentException("Can't open a " + type + " inventory!");
+        }
+
+        getHandle().activeContainer.checkReachable = false;
+        return getHandle().activeContainer.getBukkitView();
     }
 
     public InventoryView openWorkbench(Location location, boolean force) {
-        return null; // TODO
+        if (!force) {
+            Block block = location.getBlock();
+            if (block.getType() != Material.WORKBENCH) return null;
+        }
+        if (location == null) location = getLocation();
+        getHandle().b(location.getBlockX(), location.getBlockY(), location.getBlockZ());
+        if (force) getHandle().activeContainer.checkReachable = false;
+
+        return getHandle().activeContainer.getBukkitView();
     }
 
     public void openInventory(InventoryView inventory) {
-        // TODO
+        if (getHandle().activeContainer != getHandle().defaultContainer) {
+            ((EntityPlayer)getHandle()).netServerHandler.a(new Packet101CloseWindow(getHandle().activeContainer.windowId));
+        }
+
+        EntityPlayer player = (EntityPlayer) getHandle();
+        Container container = ((CraftInventoryView) inventory).getHandle();
+
+        InventoryOpenEvent event = new InventoryOpenEvent(inventory);
+        player.activeContainer.transferTo(container, this);
+        server.getPluginManager().callEvent(event);
+        if (event.isCancelled()) {
+            container.transferTo(player.activeContainer, this);
+            return;
+        }
+
+        player.netServerHandler.sendPacket(new Packet100OpenWindow(container.windowId, 1, "Crafting", 9));
+        player.activeContainer = container;
+        player.activeContainer.a((ICrafting) player);
     }
 
     public void closeInventory() {

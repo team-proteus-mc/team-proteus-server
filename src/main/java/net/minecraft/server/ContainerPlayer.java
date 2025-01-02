@@ -19,8 +19,9 @@ public class ContainerPlayer extends Container {
     }
 
     public ContainerPlayer(InventoryPlayer inventoryplayer, boolean flag) {
-        this.craftInventory = new InventoryCrafting(this, 2, 2);
         this.resultInventory = new InventoryCraftResult();
+        this.craftInventory = new InventoryCrafting(this, 2, 2);
+        this.craftInventory.resultInventory = this.resultInventory;
         this.player = inventoryplayer;
         this.c = false;
         this.c = flag;

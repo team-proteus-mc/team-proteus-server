@@ -27,12 +27,10 @@ public interface IInventory {
     ItemStack[] getContents(); // CraftBukkit
 
     // Poseidon start
-    default List<HumanEntity> getViewers() {
-        return new ArrayList<HumanEntity>();
-    }
+    List<HumanEntity> getViewers();
 
-    default void onOpen(CraftHumanEntity player) {}
+    void onOpen(HumanEntity player);
 
-    default void onClose(CraftHumanEntity player) {}
+    void onClose(HumanEntity player);
     // Poseidon end
 }

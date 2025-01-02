@@ -1,9 +1,11 @@
 package net.minecraft.server;
 
 import org.bukkit.Location;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.event.vehicle.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // CraftBukkit start
@@ -12,6 +14,7 @@ import java.util.List;
 public class EntityMinecart extends Entity implements IInventory {
 
     private ItemStack[] items;
+    private List<HumanEntity> viewers = new ArrayList<HumanEntity>(); // Poseidon
     public int damage;
     public int b;
     public int c;
@@ -884,4 +887,18 @@ public class EntityMinecart extends Entity implements IInventory {
     public boolean a_(EntityHuman entityhuman) {
         return this.dead ? false : entityhuman.g(this) <= 64.0D;
     }
+
+    // Poseidon start
+    public List<HumanEntity> getViewers() {
+        return viewers;
+    }
+
+    public void onOpen(HumanEntity player) {
+        viewers.add(player);
+    }
+
+    public void onClose(HumanEntity player) {
+        viewers.remove(player);
+    }
+    // Poseidon end
 }
