@@ -7,6 +7,7 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryType;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.map.MapView;
@@ -479,23 +480,36 @@ public interface Server {
      * @param type The type of inventory to create.
      * @return The new inventory.
      */
-    Inventory createInventory(HumanEntity owner, InventoryType type);
+    Inventory createInventory(InventoryHolder owner, InventoryType type);
+
     /**
-     * Creates an empty inventory of type {@link InventoryType#CHEST} with the specified size.
+     * Creates an empty inventory of type {@link InventoryType#CUSTOM} with the specified size.
      * @param owner The holder of the inventory; can be null if there's no holder.
      * @param size The size of inventory to create; must be a multiple of 9.
      * @return The new inventory.
      * @throws IllegalArgumentException If the size is not a multiple of 9.
      */
-    Inventory createInventory(HumanEntity owner, int size);
+    Inventory createInventory(InventoryHolder owner, int size);
+
     /**
-     * Creates an empty inventory of type {@link InventoryType#CHEST} with the specified size and title.
+     * Creates an empty inventory of type {@link InventoryType#CUSTOM} with the specified title and size.
      * @param owner The holder of the inventory; can be null if there's no holder.
-     * @param size The size of inventory to create; must be a multiple of 9.
      * @param title The title of the inventory, to be displayed when it is viewed.
+     * @param size The size of inventory to create; must be a multiple of 9.
      * @return The new inventory.
      * @throws IllegalArgumentException If the size is not a multiple of 9.
      */
-    Inventory createInventory(HumanEntity owner, int size, String title);
+    Inventory createInventory(InventoryHolder owner, String title, int size);
+
+    /**
+     * Creates an empty inventory of type {@link InventoryType#CUSTOM} with the specified title, size and maximum stack size.
+     * @param owner The holder of the inventory; can be null if there's no holder.
+     * @param title The title of the inventory, to be displayed when it is viewed.
+     * @param size The size of inventory to create; must be a multiple of 9.
+     * @param stackSize The maximum stack size of a slot in this inventory.
+     * @return The new inventory.
+     * @throws IllegalArgumentException If the size is not a multiple of 9, or if the stack size is negative.
+     */
+    Inventory createInventory(InventoryHolder owner, String title, int size, int stackSize);
 
 }

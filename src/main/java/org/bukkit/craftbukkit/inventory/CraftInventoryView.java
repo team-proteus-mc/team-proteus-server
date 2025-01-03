@@ -3,10 +3,7 @@ package org.bukkit.craftbukkit.inventory;
 import net.minecraft.server.Container;
 import org.bukkit.craftbukkit.entity.CraftHumanEntity;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryType;
-import org.bukkit.inventory.InventoryView;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.*;
 
 public class CraftInventoryView extends InventoryView {
 
@@ -57,5 +54,38 @@ public class CraftInventoryView extends InventoryView {
 
     public Container getHandle() {
         return container;
+    }
+
+    public static SlotType getSlotType(InventoryView inventory, int slot) {
+        SlotType type = SlotType.CONTAINER;
+        if (slot < inventory.getTopInventory().getSize()) {
+            switch(inventory.getType()) {
+                case FURNACE:
+                    if (slot == 2) {
+                        type = SlotType.RESULT;
+                    } else if(slot == 1) {
+                        type = SlotType.FUEL;
+                    }
+                    break;
+                case WORKBENCH:
+                case CRAFTING:
+                    if (slot == 0) {
+                        type = SlotType.RESULT;
+                    } else {
+                        type = SlotType.CRAFTING;
+                    }
+                    break;
+                default:
+            }
+        } else {
+            if (slot == -999) {
+                type = SlotType.OUTSIDE;
+            } else if (inventory.getType() == InventoryType.CRAFTING && slot < 9) {
+                type = SlotType.ARMOR;
+            } else if (slot >= (inventory.countSlots() - 9)) {
+                type = SlotType.QUICKBAR;
+            }
+        }
+        return type;
     }
 }

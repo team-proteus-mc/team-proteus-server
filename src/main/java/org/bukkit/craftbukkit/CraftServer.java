@@ -851,23 +851,29 @@ public final class CraftServer implements Server {
         server.f();
     }
 
-    public Inventory createInventory(HumanEntity owner, InventoryType type) {
-        // TODO
+    public Inventory createInventory(InventoryHolder owner, InventoryType type) {
         return new CraftInventoryCustom(owner, type);
     }
 
-    public Inventory createInventory(HumanEntity owner, int size) throws IllegalArgumentException {
+    public Inventory createInventory(InventoryHolder owner, int size) throws IllegalArgumentException {
         if (size % 9 != 0) {
             throw new IllegalArgumentException("Inventory size must be a multiple of 9!");
         }
         return new CraftInventoryCustom(owner, size);
     }
 
-    public Inventory createInventory(HumanEntity owner, int size, String title) {
+    public Inventory createInventory(InventoryHolder owner, String title, int size) {
         if (size % 9 != 0) {
             throw new IllegalArgumentException("Inventory size must be a multiple of 9!");
         }
-        return new CraftInventoryCustom(owner, size, title);
+        return new CraftInventoryCustom(owner, title, size);
+    }
+
+    public Inventory createInventory(InventoryHolder owner, String title, int size, int stackSize) {
+        if (size % 9 != 0) {
+            throw new IllegalArgumentException("Inventory size must be a multiple of 9!");
+        }
+        return new CraftInventoryCustom(owner, title, size, stackSize);
     }
 
     public boolean isShuttingdown() {

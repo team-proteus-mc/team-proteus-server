@@ -1,5 +1,7 @@
 package org.bukkit.inventory;
 
+import org.bukkit.block.Furnace;
+
 public interface FurnaceInventory extends Inventory {
 
     /**
@@ -37,4 +39,6 @@ public interface FurnaceInventory extends Inventory {
      * @param stack The item
      */
     void setSmelting(ItemStack stack);
+
+    Furnace getHolder();
 }

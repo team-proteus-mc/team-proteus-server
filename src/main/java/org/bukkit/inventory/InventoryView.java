@@ -112,6 +112,16 @@ public abstract class InventoryView {
     }
 
     /**
+     * Check the total number of slots in this view, combining the upper and lower inventories.
+     * Note though that it's possible for this to be greater than the sum of the two inventories
+     * if for example some slots are not being used.
+     * @return The total size
+     */
+    public final int countSlots() {
+        return getTopInventory().getSize() + getBottomInventory().getSize();
+    }
+
+    /**
      * Closes the inventory view.
      */
     public final void close() {

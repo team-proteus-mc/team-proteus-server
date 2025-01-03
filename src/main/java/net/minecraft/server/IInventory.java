@@ -1,9 +1,8 @@
 package net.minecraft.server;
 
-import org.bukkit.craftbukkit.entity.CraftHumanEntity;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.inventory.InventoryHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface IInventory {
@@ -32,5 +31,7 @@ public interface IInventory {
     void onOpen(HumanEntity player);
 
     void onClose(HumanEntity player);
+
+    InventoryHolder getOwner();
     // Poseidon end
 }

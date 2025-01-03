@@ -92,6 +92,12 @@ public interface Inventory {
     public InventoryType getType();
 
     /**
+     * Gets the block or entity belonging to the open inventory
+     * @return The holder of the inventory; null if it has no holder.
+     */
+    public InventoryHolder getHolder();
+
+    /**
      * Check if the inventory contains any ItemStacks with the given materialId
      *
      * @param materialId The materialId to check for

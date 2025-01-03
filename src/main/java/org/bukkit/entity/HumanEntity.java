@@ -1,16 +1,13 @@
 package org.bukkit.entity;
 
 import org.bukkit.Location;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.*;
 import org.bukkit.permissions.Permissible;
 
 /**
  * Represents a human entity, such as an NPC or a player
  */
-public interface HumanEntity extends LivingEntity, AnimalTamer, Permissible {
+public interface HumanEntity extends LivingEntity, AnimalTamer, Permissible, InventoryHolder {
 
     /**
      * Returns the name of this player

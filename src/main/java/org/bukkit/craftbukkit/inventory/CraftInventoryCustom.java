@@ -4,6 +4,7 @@ import net.minecraft.server.*;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.entity.CraftHumanEntity;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryType;
 
 import java.util.ArrayList;
@@ -16,19 +17,23 @@ import java.util.List;
  */
 public class CraftInventoryCustom extends CraftInventory {
 
-    public CraftInventoryCustom(HumanEntity owner, InventoryType type) {
+    public CraftInventoryCustom(InventoryHolder owner, InventoryType type) {
         super(createInventory(owner, type));
     }
 
-    public CraftInventoryCustom(HumanEntity owner, int size) {
+    public CraftInventoryCustom(InventoryHolder owner, int size) {
         super(new MinecraftInventory(owner, size));
     }
 
-    public CraftInventoryCustom(HumanEntity owner, int size, String title) {
-        super(new MinecraftInventory(owner, size, title));
+    public CraftInventoryCustom(InventoryHolder owner, String title, int size) {
+        super(new MinecraftInventory(owner, title, size));
     }
 
-    private static IInventory createInventory(HumanEntity owner, InventoryType type) {
+    public CraftInventoryCustom(InventoryHolder owner, String title, int size, int stackSize) {
+        super(new MinecraftInventory(owner, title, size, stackSize));
+    }
+
+    private static IInventory createInventory(InventoryHolder owner, InventoryType type) {
         switch (type) {
             case LARGE_CHEST:
                 return new InventoryLargeChest("Large chest", new TileEntityChest(), new TileEntityChest());
@@ -47,23 +52,23 @@ public class CraftInventoryCustom extends CraftInventory {
 
     static class MinecraftInventory implements IInventory {
         private ItemStack[] items;
-        private int maxStack;
+        private int stackSize;
         private String title;
         private InventoryType type;
-        private HumanEntity owner;
+        private InventoryHolder owner;
         private List<HumanEntity> viewers;
 
-        public MinecraftInventory(HumanEntity owner, InventoryType type) {
-            this(owner, type.getDefaultSize(), type.getDefaultTitle());
-            this.type = type;
+        public MinecraftInventory(InventoryHolder owner, int size) {
+            this(owner, "Chest", size);
         }
 
-        public MinecraftInventory(HumanEntity owner, int size) {
-            this(owner, size, "Chest");
+        public MinecraftInventory(InventoryHolder owner, String title, int size) {
+            this(owner, title, size, 64);
         }
 
-        public MinecraftInventory(HumanEntity owner, int size, String title) {
+        public MinecraftInventory(InventoryHolder owner, String title, int size, int stackSize) {
             this.items = new ItemStack[size];
+            this.stackSize = stackSize;
             this.title = title;
             this.viewers = new ArrayList<HumanEntity>();
             this.owner = owner;
@@ -79,22 +84,35 @@ public class CraftInventoryCustom extends CraftInventory {
         }
 
         public ItemStack splitStack(int i, int j) {
-            ItemStack stack = this.getItem(i);
-            ItemStack result;
-            if (stack == null) return null;
-            if (stack.count <= j) {
-                this.setItem(i, null);
-                result = stack;
+            if (this.items[i] != null) {
+                ItemStack itemstack;
+
+                if (this.items[i].count <= j) {
+                    itemstack = this.items[i];
+                    this.items[i] = null;
+                    this.update();
+                    return itemstack;
+                } else {
+                    itemstack = this.items[i].a(j);
+                    if (this.items[i].count == 0) {
+                        this.items[i] = null;
+                    }
+
+                    this.update();
+                    return itemstack;
+                }
             } else {
-                result = new ItemStack(stack.id, j, stack.getData());
-                stack.count -= j;
+                return null;
             }
-            this.update();
-            return result;
         }
 
         public void setItem(int i, ItemStack itemstack) {
-            items[i] = itemstack;
+            this.items[i] = itemstack;
+            if (itemstack != null && itemstack.count > this.getMaxStackSize()) {
+                itemstack.count = this.getMaxStackSize();
+            }
+
+            this.update();
         }
 
         public String getName() {
@@ -106,7 +124,7 @@ public class CraftInventoryCustom extends CraftInventory {
         }
 
         public int getMaxStackSize() {
-            return maxStack;
+            return stackSize;
         }
 
         public void update() {}
@@ -129,6 +147,10 @@ public class CraftInventoryCustom extends CraftInventory {
 
         public void onClose(HumanEntity player) {
             viewers.remove(player);
+        }
+
+        public InventoryHolder getOwner() {
+            return owner;
         }
     }
 }

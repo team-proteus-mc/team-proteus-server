@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryType;
 
 import java.util.ArrayList;
@@ -106,6 +107,10 @@ public class InventoryCrafting implements IInventory {
 
     public void onClose(HumanEntity player) {
         viewers.remove(player);
+    }
+
+    public InventoryHolder getOwner() {
+        return null;
     }
     // Poseidon end
 }

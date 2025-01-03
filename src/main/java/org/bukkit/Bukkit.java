@@ -4,10 +4,10 @@ import com.avaje.ebean.config.ServerConfig;
 import org.bukkit.World.Environment;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryType;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.map.MapView;
@@ -265,15 +265,19 @@ public final class Bukkit {
         server.reloadWhitelist();
     }
 
-    public static Inventory createInventory(HumanEntity owner, InventoryType type) {
+    public static Inventory createInventory(InventoryHolder owner, InventoryType type) {
         return server.createInventory(owner, type);
     }
 
-    public static Inventory createInventory(HumanEntity owner, int size) {
+    public static Inventory createInventory(InventoryHolder owner, int size) {
         return server.createInventory(owner, size);
     }
 
-    public static Inventory createInventory(HumanEntity owner, int size, String title) {
-        return server.createInventory(owner, size, title);
+    public static Inventory createInventory(InventoryHolder owner, String title, int size) {
+        return server.createInventory(owner, title, size);
+    }
+
+    public static Inventory createInventory(InventoryHolder owner, String title, int size, int stackSize) {
+        return server.createInventory(owner, title, size, stackSize);
     }
 }

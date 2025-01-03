@@ -1,6 +1,7 @@
 package net.minecraft.server;
 
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.inventory.InventoryHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +81,10 @@ public class InventoryLargeChest implements IInventory {
         b.onClose(player);
         c.onClose(player);
         viewers.remove(player);
+    }
+
+    public InventoryHolder getOwner() {
+        return null;
     }
     // Poseidon end
 }

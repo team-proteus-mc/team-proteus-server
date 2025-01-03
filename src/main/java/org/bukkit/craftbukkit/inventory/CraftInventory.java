@@ -7,6 +7,7 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.InventoryTransactionEvent;
 import org.bukkit.event.inventory.InventoryTransactionType;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
@@ -88,6 +89,10 @@ public class CraftInventory implements Inventory {
         } else {
             return InventoryType.CHEST;
         }
+    }
+
+    public InventoryHolder getHolder() {
+        return inventory.getOwner();
     }
 
     public boolean contains(int materialId) {
