@@ -31,5 +31,5 @@ public interface CraftingInventory extends Inventory {
      * Returns the current recipe formed on the crafting inventory, if any.
      * @return The recipe, or null if the current contents don't match any recipe
      */
-    //Recipe getRecipe();
+    Recipe getRecipe();
 }

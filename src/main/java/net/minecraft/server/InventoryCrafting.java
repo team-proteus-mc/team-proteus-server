@@ -14,6 +14,7 @@ public class InventoryCrafting implements IInventory {
     private Container c;
     // Poseidon start
     public IInventory resultInventory;
+    public CraftingRecipe currentRecipe;
     private List<HumanEntity> viewers = new ArrayList<HumanEntity>();
     // Poseidon end
 

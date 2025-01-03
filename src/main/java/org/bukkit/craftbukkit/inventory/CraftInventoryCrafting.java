@@ -1,9 +1,11 @@
 package org.bukkit.craftbukkit.inventory;
 
+import net.minecraft.server.CraftingRecipe;
 import net.minecraft.server.IInventory;
 import net.minecraft.server.InventoryCrafting;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 
 import java.util.Arrays;
 
@@ -119,5 +121,10 @@ public class CraftInventoryCrafting extends CraftInventory implements CraftingIn
                 items[i] = null;
             }
         }
+    }
+
+    public Recipe getRecipe() {
+        CraftingRecipe recipe = ((InventoryCrafting) getInventory()).currentRecipe;
+        return recipe == null ? null : recipe.toBukkitRecipe();
     }
 }

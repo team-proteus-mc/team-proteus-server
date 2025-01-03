@@ -21,11 +21,14 @@ import org.bukkit.entity.StorageMinecart;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.packet.PacketReceivedEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.SlotType;
 
 import java.util.ArrayList;
@@ -1108,7 +1111,13 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             InventoryView inventory = this.player.activeContainer.getBukkitView();
             SlotType type = CraftInventoryView.getSlotType(inventory, packet102windowclick.b);
 
-            InventoryClickEvent clickEvent = new InventoryClickEvent(inventory, type, packet102windowclick.b, packet102windowclick.c != 0, packet102windowclick.f);
+            InventoryClickEvent clickEvent;
+            if (inventory instanceof CraftingInventory && type == SlotType.RESULT) {
+                Recipe recipe = ((CraftingInventory) inventory.getTopInventory()).getRecipe();
+                clickEvent = new CraftItemEvent(recipe, inventory, type, packet102windowclick.b, packet102windowclick.c != 0, packet102windowclick.f);
+            } else {
+                clickEvent = new InventoryClickEvent(inventory, type, packet102windowclick.b, packet102windowclick.c != 0, packet102windowclick.f);
+            }
             server.getPluginManager().callEvent(clickEvent);
 
             ItemStack itemstack = null;
@@ -1160,6 +1169,11 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 }
 
                 this.player.a(this.player.activeContainer, arraylist);
+
+                // Poseidon start
+                if(type == SlotType.RESULT && itemstack != null)
+                    this.player.netServerHandler.sendPacket(new Packet103SetSlot(this.player.activeContainer.windowId, 0, itemstack));
+                // Poseidon end
             }
         }
     }
