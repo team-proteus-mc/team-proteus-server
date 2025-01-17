@@ -50,7 +50,7 @@ public class ContainerPlayer extends Container {
             this.a(new Slot(inventoryplayer, i, 8 + i * 18, 142));
         }
 
-        this.a((IInventory) this.craftInventory);
+        //this.a((IInventory) this.craftInventory); // Poseidon
     }
 
     public void a(IInventory iinventory) {
