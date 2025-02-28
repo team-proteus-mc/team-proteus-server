@@ -9,7 +9,7 @@ package org.bukkit.entity;
  * @author Cogito
  *
  */
-public interface Slime extends LivingEntity, Monster {
+public interface Slime extends LivingEntity {
 
     /**
      * @author Celtic Minstrel
