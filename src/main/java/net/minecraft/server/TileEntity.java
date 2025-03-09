@@ -1,8 +1,5 @@
 package net.minecraft.server;
 
-import org.bukkit.block.BlockState;
-import org.bukkit.inventory.InventoryHolder;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -95,14 +92,6 @@ public class TileEntity {
     public void j() {
         this.h = false;
     }
-
-    // Poseidon start
-    public InventoryHolder getOwner() {
-        BlockState state = world.getWorld().getBlockAt(x, y, z).getState();
-        if(state instanceof InventoryHolder) return (InventoryHolder) state;
-        return null;
-    }
-    // Poseidon end
 
     static {
         a(TileEntityFurnace.class, "Furnace");

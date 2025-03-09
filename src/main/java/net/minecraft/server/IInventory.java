@@ -1,10 +1,5 @@
 package net.minecraft.server;
 
-import org.bukkit.entity.HumanEntity;
-import org.bukkit.inventory.InventoryHolder;
-
-import java.util.List;
-
 public interface IInventory {
 
     int getSize();
@@ -24,14 +19,4 @@ public interface IInventory {
     boolean a_(EntityHuman entityhuman);
 
     ItemStack[] getContents(); // CraftBukkit
-
-    // Poseidon start
-    List<HumanEntity> getViewers();
-
-    void onOpen(HumanEntity player);
-
-    void onClose(HumanEntity player);
-
-    InventoryHolder getOwner();
-    // Poseidon end
 }

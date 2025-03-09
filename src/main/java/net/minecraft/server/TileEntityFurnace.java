@@ -2,12 +2,8 @@ package net.minecraft.server;
 
 // CraftBukkit start
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.FurnaceBurnEvent;
 import org.bukkit.event.inventory.FurnaceSmeltEvent;
-
-import java.util.ArrayList;
-import java.util.List;
 // CraftBukkit end
 
 public class TileEntityFurnace extends TileEntity implements IInventory {
@@ -16,7 +12,6 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
     public int burnTime = 0;
     public int ticksForCurrentFuel = 0;
     public int cookTime = 0;
-    private List<HumanEntity> viewers = new ArrayList<HumanEntity>(); // Poseidon
 
     // CraftBukkit start
     private int lastTick = (int) (System.currentTimeMillis() / 50);
@@ -250,18 +245,4 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
     public boolean a_(EntityHuman entityhuman) {
         return this.world.getTileEntity(this.x, this.y, this.z) != this ? false : entityhuman.e((double) this.x + 0.5D, (double) this.y + 0.5D, (double) this.z + 0.5D) <= 64.0D;
     }
-
-    // Poseidon start
-    public List<HumanEntity> getViewers() {
-        return viewers;
-    }
-
-    public void onOpen(HumanEntity player) {
-        viewers.add(player);
-    }
-
-    public void onClose(HumanEntity player) {
-        viewers.remove(player);
-    }
-    // Poseidon end
 }
