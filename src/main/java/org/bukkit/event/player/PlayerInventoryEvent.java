@@ -5,10 +5,7 @@ import org.bukkit.inventory.Inventory;
 
 /**
  * Represents a player related inventory event
- *
- * @deprecated Use the events in {@link org.bukkit.event.inventory}.
  */
-@Deprecated
 public class PlayerInventoryEvent extends PlayerEvent {
     protected Inventory inventory;
 

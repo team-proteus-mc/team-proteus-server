@@ -1,14 +1,11 @@
 package org.bukkit.block;
 
-import org.bukkit.inventory.FurnaceInventory;
-import org.bukkit.inventory.InventoryHolder;
-
 /**
  * Represents a furnace.
  *
  * @author sk89q
  */
-public interface Furnace extends BlockState, ContainerBlock, InventoryHolder {
+public interface Furnace extends BlockState, ContainerBlock {
 
     /**
      * Get burn time.
@@ -37,6 +34,4 @@ public interface Furnace extends BlockState, ContainerBlock, InventoryHolder {
      * @param cookTime
      */
     public void setCookTime(short cookTime);
-
-    public FurnaceInventory getInventory();
 }

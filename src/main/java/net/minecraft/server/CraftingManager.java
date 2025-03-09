@@ -1,8 +1,5 @@
 package net.minecraft.server;
 
-import org.bukkit.craftbukkit.event.CraftEventFactory;
-import org.bukkit.inventory.InventoryView;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,7 +9,6 @@ public class CraftingManager {
 
     private static final CraftingManager a = new CraftingManager();
     private List b = new ArrayList();
-    public InventoryView lastCraftView; // Poseidon
 
     public static final CraftingManager getInstance() {
         return a;
@@ -174,12 +170,7 @@ public class CraftingManager {
             CraftingRecipe craftingrecipe = (CraftingRecipe) this.b.get(i);
 
             if (craftingrecipe.a(inventorycrafting)) {
-                // Poseidon start
-                inventorycrafting.currentRecipe = craftingrecipe;
-                ItemStack result = craftingrecipe.b(inventorycrafting);
-                result = CraftEventFactory.callPreCraftEvent(inventorycrafting, result, lastCraftView);
-                return result;
-                // Poseidon end
+                return craftingrecipe.b(inventorycrafting);
             }
         }
 

@@ -1,10 +1,5 @@
 package net.minecraft.server;
 
-import org.bukkit.craftbukkit.entity.CraftHumanEntity;
-import org.bukkit.craftbukkit.inventory.CraftInventory;
-import org.bukkit.craftbukkit.inventory.CraftInventoryView;
-import org.bukkit.inventory.InventoryView;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +13,6 @@ public abstract class Container {
     private short a = 0;
     protected List listeners = new ArrayList();
     private Set b = new HashSet();
-    public boolean checkReachable = true; // Poseidon
 
     public Container() {}
 
@@ -288,19 +282,4 @@ public abstract class Container {
             }
         }
     }
-
-    // Poseidon start
-    public CraftInventoryView getBukkitView() {
-        return null;
-    }
-
-    public void transferTo(Container other, CraftHumanEntity player) {
-        InventoryView source = getBukkitView();
-        InventoryView destination = other.getBukkitView();
-        ((CraftInventory)source.getTopInventory()).getInventory().onClose(player);
-        ((CraftInventory)source.getBottomInventory()).getInventory().onClose(player);
-        ((CraftInventory)destination.getTopInventory()).getInventory().onOpen(player);
-        ((CraftInventory)destination.getBottomInventory()).getInventory().onOpen(player);
-    }
-    // Poseidon end
 }
