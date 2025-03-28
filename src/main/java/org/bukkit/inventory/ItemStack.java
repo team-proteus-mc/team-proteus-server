@@ -192,7 +192,11 @@ public class ItemStack {
 
         ItemStack item = (ItemStack) obj;
 
-        return item.getAmount() == getAmount() && item.getTypeId() == getTypeId();
+        return (
+            item.getAmount() == getAmount() &&
+            item.getTypeId() == getTypeId() &&
+            item.getDurability() == getDurability()
+        );
     }
 
     @Override
