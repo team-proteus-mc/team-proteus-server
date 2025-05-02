@@ -1,3 +1,6 @@
+# Team Proteus Server
+Based off of Project Poseidon.
+
 # Project-Poseidon
 ![](/img/banner.png)
 ## What's Project Poseidon?
