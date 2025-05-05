@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class BlockPiston extends Block {
 
     private boolean a;
-    private boolean b;
+    //private boolean b;
 
     public BlockPiston(int i, int j, boolean flag) {
         super(i, j, Material.PISTON);
@@ -45,7 +45,7 @@ public class BlockPiston extends Block {
     }
 
     public void doPhysics(World world, int i, int j, int k, int l) {
-        if (!world.isStatic && !this.b) {
+        if (!world.isStatic) {
             this.g(world, i, j, k);
         }
     }
@@ -76,13 +76,10 @@ public class BlockPiston extends Block {
 
                     BlockPistonExtendEvent event = new BlockPistonExtendEvent(block, length);
                     world.getServer().getPluginManager().callEvent(event);
-
                     if (event.isCancelled()) {
                         return;
                     }
                     // CraftBukkit end
-
-                    world.setRawData(i, j, k, i1 | 8);
                     world.playNote(i, j, k, 0, i1);
                 }
             } else if (!flag && d(l)) {
@@ -108,7 +105,17 @@ public class BlockPiston extends Block {
     }
 
     public void a(World world, int i, int j, int k, int l, int i1) {
-        this.b = true;
+        if (!world.isStatic) {
+            boolean var69 = this.f(world, i, j, k, i1);
+            if (var69 && l == 1) {
+                world.setData(i, j, k, i1 | 8);
+                return;
+            }
+            if (!var69 && l == 0) {
+                return;
+            }
+        }
+        //this.b = true;
         if (l == 0) {
             if (this.i(world, i, j, k, i1)) {
                 world.setData(i, j, k, i1 | 8);
@@ -147,29 +154,29 @@ public class BlockPiston extends Block {
                 }
 
                 if (!flag && i2 > 0 && a(i2, world, j1, k1, l1, false) && (Block.byId[i2].e() == 0 || i2 == Block.PISTON.id || i2 == Block.PISTON_STICKY.id)) {
-                    this.b = false;
+                    //this.b = false;
                     world.setTypeId(j1, k1, l1, 0);
-                    this.b = true;
+                    //this.b = true;
                     i += PistonBlockTextures.b[i1];
                     j += PistonBlockTextures.c[i1];
                     k += PistonBlockTextures.d[i1];
                     world.setRawTypeIdAndData(i, j, k, Block.PISTON_MOVING.id, j2);
                     world.setTileEntity(i, j, k, BlockPistonMoving.a(i2, j2, i1, false, false));
                 } else if (!flag) {
-                    this.b = false;
+                    //this.b = false;
                     world.setTypeId(i + PistonBlockTextures.b[i1], j + PistonBlockTextures.c[i1], k + PistonBlockTextures.d[i1], 0);
-                    this.b = true;
+                    //this.b = true;
                 }
             } else {
-                this.b = false;
+                //this.b = false;
                 world.setTypeId(i + PistonBlockTextures.b[i1], j + PistonBlockTextures.c[i1], k + PistonBlockTextures.d[i1], 0);
-                this.b = true;
+                //this.b = true;
             }
 
             world.makeSound((double) i + 0.5D, (double) j + 0.5D, (double) k + 0.5D, "tile.piston.in", 0.5F, world.random.nextFloat() * 0.15F + 0.6F);
         }
 
-        this.b = false;
+        //this.b = false;
     }
 
     public void a(IBlockAccess iblockaccess, int i, int j, int k) {

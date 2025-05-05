@@ -351,12 +351,12 @@ public abstract class Entity {
     }
 
     public void move(double d0, double d1, double d2) {
-        if (this.bt) {
-            this.boundingBox.d(d0, d1, d2);
-            this.locX = (this.boundingBox.a + this.boundingBox.d) / 2.0D;
-            this.locY = this.boundingBox.b + (double) this.height - (double) this.br;
-            this.locZ = (this.boundingBox.c + this.boundingBox.f) / 2.0D;
-        } else {
+        if (!this.bt) {
+            //this.boundingBox.d(d0, d1, d2);
+            //this.locX = (this.boundingBox.a + this.boundingBox.d) / 2.0D;
+            //this.locY = this.boundingBox.b + (double) this.height - (double) this.br;
+            //this.locZ = (this.boundingBox.c + this.boundingBox.f) / 2.0D;
+        //} else {
             this.br *= 0.4F;
             double d3 = this.locX;
             double d4 = this.locZ;

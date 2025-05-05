@@ -64,20 +64,8 @@ public class BlockStairs extends Block {
         this.a.b(world, i, j, k, entityhuman);
     }
 
-    public void postBreak(World world, int i, int j, int k, int l) {
-        this.a.postBreak(world, i, j, k, l);
-    }
-
     public float a(Entity entity) {
         return this.a.a(entity);
-    }
-
-    public int a(int i, Random random) {
-        return this.a.a(i, random);
-    }
-
-    public int a(Random random) {
-        return this.a.a(random);
     }
 
     public int a(int i, int j) {
@@ -113,14 +101,6 @@ public class BlockStairs extends Block {
         this.a.c(world, i, j, k);
     }
 
-    public void remove(World world, int i, int j, int k) {
-        this.a.remove(world, i, j, k);
-    }
-
-    public void dropNaturally(World world, int i, int j, int k, int l, float f) {
-        this.a.dropNaturally(world, i, j, k, l, f);
-    }
-
     public void b(World world, int i, int j, int k, Entity entity) {
         this.a.b(world, i, j, k, entity);
     }
@@ -133,9 +113,6 @@ public class BlockStairs extends Block {
         return this.a.interact(world, i, j, k, entityhuman);
     }
 
-    public void d(World world, int i, int j, int k) {
-        this.a.d(world, i, j, k);
-    }
 
     public void postPlace(World world, int i, int j, int k, EntityLiving entityliving) {
         int l = MathHelper.floor((double) (entityliving.yaw * 4.0F / 360.0F) + 0.5D) & 3;

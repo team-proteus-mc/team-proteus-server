@@ -14,13 +14,13 @@ import java.util.Set;
 
 public abstract class Packet {
 
-    private static Map packetIdToClassMap = new HashMap();
-    private static Map packetClassToIdMap = new HashMap();
-    private static Set clientPacketIdList = new HashSet();
-    private static Set serverPacketIdList = new HashSet();
+    private static Map<Integer, Class<?>> packetIdToClassMap = new HashMap<Integer, Class<?>>();
+    private static Map<Class<?>, Integer> packetClassToIdMap = new HashMap<Class<?>, Integer>();
+    private static Set<Integer> clientPacketIdList = new HashSet<Integer>();
+    private static Set<Integer> serverPacketIdList = new HashSet<Integer>();
     public final long timestamp = System.currentTimeMillis();
     public boolean k = false;
-    private static HashMap e;
+    private static HashMap<Integer, PacketCounter> e;
     private static int f;
 
     public Packet() {}
@@ -33,7 +33,7 @@ public abstract class Packet {
      * @param serverSide
      * @param oclass
      */
-    public static void registerPacket(int id, boolean clientSide, boolean serverSide, Class oclass)
+    public static void registerPacket(int id, boolean clientSide, boolean serverSide, Class<?> oclass)
     {
         if (packetIdToClassMap.containsKey(Integer.valueOf(id)))
             throw new IllegalArgumentException("Duplicate packet id:" + id);
@@ -49,7 +49,7 @@ public abstract class Packet {
         }
     }
     
-    static void a(int i, boolean flag, boolean flag1, Class oclass) {
+    static void a(int i, boolean flag, boolean flag1, Class<?> oclass) {
         if (packetIdToClassMap.containsKey(Integer.valueOf(i))) {
             throw new IllegalArgumentException("Duplicate packet id:" + i);
         } else if (packetClassToIdMap.containsKey(oclass)) {
@@ -67,9 +67,10 @@ public abstract class Packet {
         }
     }
 
-    public static Packet a(int i) {
+    @SuppressWarnings("deprecation")
+	public static Packet a(int i) {
         try {
-            Class oclass = (Class) packetIdToClassMap.get(Integer.valueOf(i));
+            Class<?> oclass = (Class<?>) packetIdToClassMap.get(Integer.valueOf(i));
 
             return oclass == null ? null : (Packet) oclass.newInstance();
         } catch (Exception exception) {
@@ -85,7 +86,6 @@ public abstract class Packet {
 
     // CraftBukkit - throws IOException
     public static Packet a(DataInputStream datainputstream, boolean flag) throws IOException {
-        boolean flag1 = false;
         Packet packet = null;
 
         int i;
@@ -238,12 +238,16 @@ public abstract class Packet {
         a(104, true, false, Packet104WindowItems.class);
         a(105, true, false, Packet105CraftProgressBar.class);
         a(106, true, true, Packet106Transaction.class);
+        a(122, true, false, zzx.class);
         a(130, true, true, Packet130UpdateSign.class);
         a(131, true, false, Packet131.class);
+        a(132, true, true, Packet132SetMobSpawner.class);
+        a(133, true, true, Packet133SetNote.class);
         a(200, true, false, Packet200Statistic.class);
+        a(244, true, true, Packet244PlayerStance.class);
         a(255, true, true, Packet255KickDisconnect.class);
         packetClassToIdMap.put(ArtificialPacket53BlockChange.class, 53); //Poseidon - Artificial Block Change Packet
-        e = new HashMap();
+        e = new HashMap<Integer, PacketCounter>();
         f = 0;
     }
 }

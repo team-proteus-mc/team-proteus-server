@@ -54,6 +54,10 @@ public class BlockRedstoneOre extends Block {
     public int a(Random random) {
         return 4 + random.nextInt(2);
     }
+    
+    public int ag(int i, Random random) {
+        return Block.REDSTONE_ORE.id;
+    }
 
     private void h(World world, int i, int j, int k) {
         Random random = world.random;

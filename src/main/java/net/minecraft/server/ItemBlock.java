@@ -9,7 +9,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 public class ItemBlock extends Item {
 
-    private int id;
+    protected int id;
 
     public ItemBlock(int i) {
         super(i);
@@ -58,20 +58,6 @@ public class ItemBlock extends Item {
             // CraftBukkit start - This executes the placement of the block
             CraftBlockState replacedBlockState = CraftBlockState.getBlockState(world, i, j, k);
 
-            // There are like 30 combinations you can mix and match steps and double steps
-            // of different materials, so there are a lot of different cases of what
-            // would happen if you place x step onto another y step, so let's just keep
-            // track of the entire state
-            CraftBlockState blockStateBelow = null;
-            // Toggles whether the normal or the block below is used for the place event 
-            boolean eventUseBlockBelow = false;
-            if ((world.getTypeId(i, j - 1, k) == Block.STEP.id || world.getTypeId(i, j - 1, k) == Block.DOUBLE_STEP.id)
-                    && (itemstack.id == Block.DOUBLE_STEP.id || itemstack.id == Block.STEP.id)) {
-                blockStateBelow = CraftBlockState.getBlockState(world, i, j - 1, k);
-                // Step is placed on step, forms a doublestep replacing the original step, so we need the lower block
-                eventUseBlockBelow = itemstack.id == Block.STEP.id && blockStateBelow.getTypeId() == Block.STEP.id;
-            }
-
             /**
             * @see net.minecraft.server.World#setTypeIdAndData(int i, int j, int k, int l, int i1)
             *
@@ -83,22 +69,15 @@ public class ItemBlock extends Item {
             * replace this with.
             */
             if (world.setRawTypeIdAndData(i, j, k, this.id, this.filterData(itemstack.getData()))) { // <-- world.setTypeIdAndData does this to place the block
-                BlockPlaceEvent event = CraftEventFactory.callBlockPlaceEvent(world, entityhuman, eventUseBlockBelow ? blockStateBelow : replacedBlockState, clickedX, clickedY, clickedZ, block);
+                BlockPlaceEvent event = CraftEventFactory.callBlockPlaceEvent(world, entityhuman, replacedBlockState, clickedX, clickedY, clickedZ, block);
 
                 if (event.isCancelled() || !event.canBuild()) {
-                    if (blockStateBelow != null) { // Used for steps
-                        world.setTypeIdAndData(i, j, k, replacedBlockState.getTypeId(), replacedBlockState.getRawData());
-                        world.setTypeIdAndData(i, j - 1, k, blockStateBelow.getTypeId(), blockStateBelow.getRawData());
-
-                    } else {
-
-                        if (this.id == Block.ICE.id) {
-                            // Ice will explode if we set straight to 0
-                            world.setTypeId(i, j, k, 20);
-                        }
-
-                        world.setTypeIdAndData(i, j, k, replacedBlockState.getTypeId(), replacedBlockState.getRawData());
+                    if (this.id == Block.ICE.id) {
+                        // Ice will explode if we set straight to 0
+                        world.setTypeId(i, j, k, 20);
                     }
+
+                    world.setTypeIdAndData(i, j, k, replacedBlockState.getTypeId(), replacedBlockState.getRawData());
                     return true;
 
                 }

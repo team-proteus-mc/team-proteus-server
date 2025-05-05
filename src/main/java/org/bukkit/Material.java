@@ -110,6 +110,10 @@ public enum Material {
     DIODE_BLOCK_ON(94, Diode.class),
     LOCKED_CHEST(95),
     TRAP_DOOR(96, TrapDoor.class),
+    IRON_TRAP_DOOR(97, TrapDoor.class),
+    STONE_BRICKS(98),
+    BRICK_STAIRS(99),
+    STONE_BRICK_STAIRS(100),
     // ----- Item Separator -----
     IRON_SPADE(256, 1, 250),
     IRON_PICKAXE(257, 1, 250),
@@ -215,8 +219,22 @@ public enum Material {
     COOKIE(357, 8),
     MAP(358, 1, MaterialData.class),
     SHEARS(359, 1, 238),
+    BEEF(360, 1),
+    STEAK(361, 1),
+    CHICKEN(362, 1),
+    GRILLED_CHICKEN(363, 1),
     GOLD_RECORD(2256, 1),
-    GREEN_RECORD(2257, 1);
+    GREEN_RECORD(2257, 1),
+    BLOCKS_RECORD(2258, 1),
+    CHIRP_RECORD(2259, 1),
+    FAR_RECORD(2260, 1),
+    MALL_RECORD(2261, 1),
+    MELLOHI_RECORD(2262, 1),
+    STAL_RECORD(2263, 1),
+    STRAD_RECORD(2264, 1),
+    WARD_RECORD(2265, 1),
+    BROKEN_RECORD(2266, 1),
+    WAWN_RECORD(2267, 1);
 
     private final int id;
     private final Class<? extends MaterialData> data;

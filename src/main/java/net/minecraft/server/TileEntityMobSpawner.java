@@ -121,6 +121,11 @@ public class TileEntityMobSpawner extends TileEntity {
     private void c() {
         this.spawnDelay = 200 + this.world.random.nextInt(600);
     }
+    
+    public Packet f() {
+        String astring = new String(this.mobName != null ? this.mobName : "Pig");
+        return new Packet132SetMobSpawner(this.x, this.y, this.z, astring);
+    }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);

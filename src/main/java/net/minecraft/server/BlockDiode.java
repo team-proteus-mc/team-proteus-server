@@ -19,11 +19,11 @@ public class BlockDiode extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return !world.e(i, j - 1, k) ? false : super.canPlace(world, i, j, k);
+        return !world.csbt(i, j - 1, k) ? false : super.canPlace(world, i, j, k);
     }
 
     public boolean f(World world, int i, int j, int k) {
-        return !world.e(i, j - 1, k) ? false : super.f(world, i, j, k);
+        return !world.csbt(i, j - 1, k) ? false : super.f(world, i, j, k);
     }
 
     public void a(World world, int i, int j, int k, Random random) {

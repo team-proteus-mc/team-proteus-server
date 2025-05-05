@@ -98,6 +98,11 @@ public class NetLoginHandler extends NetHandler {
                 this.disconnect("Outdated client! Please use Beta 1.7.3");
             }
         } else {
+            int vert = Integer.parseInt(StatisticCollector.a("server.rawversion"));
+            if (packet1login.tpv != vert) {
+                this.disconnect(StatisticCollector.a("disconnect.incompatible") + " " + StatisticCollector.a("server.version"));
+                return;
+            }
             //Project Poseidon - Start (Release2Beta)
             if (packet1login.d == (byte) -999 || packet1login.d == (byte) 25) {
                 connectionType = ConnectionType.RELEASE2BETA_OFFLINE_MODE_IP_FORWARDING;

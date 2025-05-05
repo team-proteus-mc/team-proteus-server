@@ -10,7 +10,7 @@ import java.util.Random;
 public class BlockRedstoneTorch extends BlockTorch {
 
     private boolean isOn = false;
-    private static List b = new ArrayList();
+    private static List<RedstoneUpdateInfo> b = new ArrayList<RedstoneUpdateInfo>();
 
     public int a(int i, int j) {
         return i == 1 ? Block.REDSTONE_WIRE.a(i, j) : super.a(i, j);
@@ -22,10 +22,12 @@ public class BlockRedstoneTorch extends BlockTorch {
         }
 
         int l = 0;
-
+        for (int ii = b.size() - 1; ii > 1; --ii) {
+            if (BlockRedstoneTorch.b.get((int)ii).d >= world.getTime() - 200L) continue;
+            b.remove(ii);
+        }
         for (int i1 = 0; i1 < b.size(); ++i1) {
             RedstoneUpdateInfo redstoneupdateinfo = (RedstoneUpdateInfo) b.get(i1);
-
             if (redstoneupdateinfo.a == i && redstoneupdateinfo.b == j && redstoneupdateinfo.c == k) {
                 ++l;
                 if (l >= 8) {

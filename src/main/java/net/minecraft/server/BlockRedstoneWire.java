@@ -10,7 +10,7 @@ import java.util.Set;
 public class BlockRedstoneWire extends Block {
 
     private boolean a = true;
-    private Set b = new HashSet();
+    private Set<ChunkPosition> b = new HashSet<ChunkPosition>();
 
     public BlockRedstoneWire(int i, int j) {
         super(i, j, Material.ORIENTABLE);
@@ -34,12 +34,12 @@ public class BlockRedstoneWire extends Block {
     }
 
     public boolean canPlace(World world, int i, int j, int k) {
-        return world.e(i, j - 1, k);
+        return world.csbt(i, j - 1, k);
     }
 
     private void g(World world, int i, int j, int k) {
         this.a(world, i, j, k, i, j, k);
-        ArrayList arraylist = new ArrayList(this.b);
+        ArrayList<ChunkPosition> arraylist = new ArrayList<ChunkPosition>(this.b);
 
         this.b.clear();
 

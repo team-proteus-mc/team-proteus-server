@@ -10,6 +10,7 @@ public class Packet1Login extends Packet {
     public String name;
     public long c;
     public byte d;
+    public int tpv;
 
     public Packet1Login() {}
 
@@ -18,6 +19,7 @@ public class Packet1Login extends Packet {
         this.a = i;
         this.c = j;
         this.d = b0;
+        this.tpv = Integer.parseInt(StatisticCollector.a("server.rawversion"));
     }
 
     public void a(DataInputStream datainputstream) throws IOException {
@@ -25,6 +27,7 @@ public class Packet1Login extends Packet {
         this.name = a(datainputstream, 16);
         this.c = datainputstream.readLong();
         this.d = datainputstream.readByte();
+        this.tpv = datainputstream.readInt();
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
@@ -32,6 +35,7 @@ public class Packet1Login extends Packet {
         a(this.name, dataoutputstream);
         dataoutputstream.writeLong(this.c);
         dataoutputstream.writeByte(this.d);
+        dataoutputstream.writeInt(this.tpv);
     }
 
     public void a(NetHandler nethandler) {
@@ -39,6 +43,6 @@ public class Packet1Login extends Packet {
     }
 
     public int a() {
-        return 4 + this.name.length() + 4 + 5;
+        return 4 + this.name.length() + 4 + 5 + 4;
     }
 }

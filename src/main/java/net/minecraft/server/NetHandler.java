@@ -207,6 +207,18 @@ public abstract class NetHandler {
     public void a(Packet131 packet131) {
         this.a((Packet) packet131);
     }
+    
+    public void a(Packet132SetMobSpawner packet132setmobspawner) {
+        this.a((Packet)packet132setmobspawner);
+    }
+
+    public void a(Packet133SetNote packet132setnote) {
+        this.a((Packet)packet132setnote);
+    }
+
+    public void a(Packet244PlayerStance packet) {
+        this.a((Packet)packet);
+    }
 
     public void a(Packet61 packet61) {
         this.a((Packet) packet61);

@@ -316,6 +316,11 @@ public class World implements IBlockAccess {
 
         return l == 0 ? Material.AIR : Block.byId[l].material;
     }
+    
+    public boolean csbt(int x, int y, int z) {
+        boolean bool1 = this.getTypeId(x, y, z) == Block.STEP.id && (this.getData(x, y, z) & 8) == 8;
+        return this.e(x, y, z) || bool1;
+    }
 
     public int getData(int i, int j, int k) {
         if (i >= -32000000 && k >= -32000000 && i < 32000000 && k <= 32000000) {
@@ -480,7 +485,7 @@ public class World implements IBlockAccess {
             if (flag) {
                 int l = this.getTypeId(i, j, k);
 
-                if (l == Block.STEP.id || l == Block.SOIL.id || l == Block.COBBLESTONE_STAIRS.id || l == Block.WOOD_STAIRS.id) {
+                if (l == Block.STEP.id || l == Block.SOIL.id || l == Block.COBBLESTONE_STAIRS.id || l == Block.WOOD_STAIRS.id || l == Block.BRICK_STAIRS.id || l == Block.STONE_BRICK_STAIRS.id) {
                     int i1 = this.a(i, j + 1, k, false);
                     int j1 = this.a(i + 1, j, k, false);
                     int k1 = this.a(i - 1, j, k, false);
@@ -2094,6 +2099,36 @@ public class World implements IBlockAccess {
         Block block = Block.byId[j1];
         Block block1 = Block.byId[i];
         AxisAlignedBB axisalignedbb = block1.e(this, j, k, l);
+
+        if (flag) {
+            axisalignedbb = null;
+        }
+
+        boolean defaultReturn; // CraftBukkit - store the default action
+
+        if (axisalignedbb != null && !this.containsEntity(axisalignedbb)) {
+            defaultReturn = false; // CraftBukkit
+        } else {
+            if (block == Block.WATER || block == Block.STATIONARY_WATER || block == Block.LAVA || block == Block.STATIONARY_LAVA || block == Block.FIRE || block == Block.SNOW) {
+                block = null;
+            }
+
+            defaultReturn = i > 0 && block == null && block1.canPlace(this, j, k, l, i1); // CraftBukkit
+        }
+
+        // CraftBukkit start
+        BlockCanBuildEvent event = new BlockCanBuildEvent(this.getWorld().getBlockAt(j, k, l), i, defaultReturn);
+        this.getServer().getPluginManager().callEvent(event);
+
+        return event.isBuildable();
+        // CraftBukkit end
+    }
+    
+    public boolean a(int i, int j, int k, int l, boolean flag, int i1, int zz) {
+        int j1 = this.getTypeId(j, k, l);
+        Block block = Block.byId[j1];
+        Block block1 = Block.byId[i];
+        AxisAlignedBB axisalignedbb = block1.e(this, j, k, l, zz);
 
         if (flag) {
             axisalignedbb = null;

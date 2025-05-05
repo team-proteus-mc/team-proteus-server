@@ -9,12 +9,15 @@ public class ItemFood extends Item {
         super(i);
         this.a = j;
         this.bk = flag;
-        this.maxStackSize = 1;
+        this.maxStackSize = 8;
     }
 
+    @Override
     public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-        --itemstack.count;
-        entityhuman.b(this.a);
+        if (entityhuman.health < 20) {
+            --itemstack.count;
+            entityhuman.b(this.a);
+        }
         return itemstack;
     }
 

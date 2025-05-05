@@ -1,9 +1,14 @@
 package net.minecraft.server;
 
+import java.util.ArrayList;
+
 // CraftBukkit start
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 // CraftBukkit end
 
@@ -65,6 +70,27 @@ public class EntityCow extends EntityAnimal {
             return true;
         } else {
             return false;
+        }
+    }
+    
+    protected void q() {
+        int i = this.j();
+        int ii = Item.BEEF.id;
+        ArrayList<org.bukkit.inventory.ItemStack> loot = new ArrayList<org.bukkit.inventory.ItemStack>();
+        int count = this.random.nextInt(3);
+        if (i > 0 && count > 0) {
+            loot.add(new org.bukkit.inventory.ItemStack(i, count));
+        }
+        count = this.random.nextInt(3);
+        if (i > 0 && count > 0) {
+            loot.add(new org.bukkit.inventory.ItemStack(ii, count));
+        }
+        CraftEntity entity = (CraftEntity)this.getBukkitEntity();
+        EntityDeathEvent event = new EntityDeathEvent(entity, loot);
+        CraftWorld bworld = this.world.getWorld();
+        this.world.getServer().getPluginManager().callEvent(event);
+        for (org.bukkit.inventory.ItemStack stack : event.getDrops()) {
+            bworld.dropItemNaturally(entity.getLocation(), stack);
         }
     }
 }

@@ -23,4 +23,13 @@ public class BlockMobSpawner extends BlockContainer {
     public boolean a() {
         return false;
     }
+    
+    @Override
+    public void postPlace(World world, int i, int j, int k, int l) {
+        String name = EntityTypes.idToName(l);
+        String str1 = EntityTypes.getSpawnType(name);
+        boolean legal = str1 != null ? str1 != "illegal" : false;
+        TileEntityMobSpawner tileentitymobspawner = (TileEntityMobSpawner)world.getTileEntity(i, j, k);
+        tileentitymobspawner.a(name != null && legal ? name : "Pig");
+    }
 }

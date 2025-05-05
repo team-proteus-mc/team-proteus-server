@@ -54,6 +54,9 @@ public abstract class EntityHuman extends EntityLiving {
     public float F;
     private int d = 0;
     public EntityFish hookedFish = null;
+    public double hitx = 0.5;
+    public double hity = 0.5;
+    public double hitz = 0.5;
 
     public EntityHuman(World world) {
         super(world);
@@ -204,7 +207,7 @@ public abstract class EntityHuman extends EntityLiving {
         this.o += (f - this.o) * 0.4F;
         this.aj += (f1 - this.aj) * 0.8F;
         if (this.health > 0) {
-            List list = this.world.b((Entity) this, this.boundingBox.b(1.0D, 0.0D, 1.0D));
+            List<?> list = this.world.b((Entity) this, this.boundingBox.b(1.0D, 0.0D, 1.0D));
 
             if (list != null) {
                 for (int i = 0; i < list.size(); ++i) {
@@ -457,8 +460,8 @@ public abstract class EntityHuman extends EntityLiving {
             }
 
             if (!(entityliving instanceof EntityHuman) || this.j_()) {
-                List list = this.world.a(EntityWolf.class, AxisAlignedBB.b(this.locX, this.locY, this.locZ, this.locX + 1.0D, this.locY + 1.0D, this.locZ + 1.0D).b(16.0D, 4.0D, 16.0D));
-                Iterator iterator = list.iterator();
+                List<?> list = this.world.a(EntityWolf.class, AxisAlignedBB.b(this.locX, this.locY, this.locZ, this.locX + 1.0D, this.locY + 1.0D, this.locZ + 1.0D).b(16.0D, 4.0D, 16.0D));
+                Iterator<?> iterator = list.iterator();
 
                 while (iterator.hasNext()) {
                     Entity entity = (Entity) iterator.next();

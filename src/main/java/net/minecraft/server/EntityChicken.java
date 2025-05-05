@@ -1,5 +1,12 @@
 package net.minecraft.server;
 
+import java.util.ArrayList;
+
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.inventory.ItemStack;
+
 public class EntityChicken extends EntityAnimal {
 
     public boolean a = false;
@@ -72,5 +79,27 @@ public class EntityChicken extends EntityAnimal {
 
     protected int j() {
         return Item.FEATHER.id;
+    }
+    
+    @Override
+    protected void q() {
+        int i = this.j();
+        int ii = Item.CHICKEN.id;
+        ArrayList<ItemStack> loot = new ArrayList<ItemStack>();
+        int count = this.random.nextInt(3);
+        if (i > 0 && count > 0) {
+            loot.add(new ItemStack(i, count));
+        }
+        count = this.random.nextInt(3);
+        if (ii > 0 && count > 0) {
+            loot.add(new ItemStack(ii, 1));
+        }
+        CraftEntity entity = (CraftEntity)this.getBukkitEntity();
+        EntityDeathEvent event = new EntityDeathEvent(entity, loot);
+        CraftWorld bworld = this.world.getWorld();
+        this.world.getServer().getPluginManager().callEvent(event);
+        for (ItemStack stack : event.getDrops()) {
+            bworld.dropItemNaturally(entity.getLocation(), stack);
+        }
     }
 }

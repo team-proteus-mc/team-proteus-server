@@ -172,14 +172,21 @@ public class ItemInWorldManager {
 
         int l = this.world.getTypeId(i, j, k);
         int i1 = this.world.getData(i, j, k);
-
+        int ub = 0;
+        if (l != 0 && this.world.getTileEntity(i, j, k) != null && this.world.getTypeId(i, j, k) == Block.MOB_SPAWNER.id) {
+            ub = EntityTypes.nameToID(((TileEntityMobSpawner)this.world.getTileEntity((int)i, (int)j, (int)k)).mobName);
+        }
         this.world.a(this.player, 2001, i, j, k, l + this.world.getData(i, j, k) * 256);
         boolean flag = this.b(i, j, k);
         ItemStack itemstack = this.player.G();
 
         if (flag && this.player.b(Block.byId[l])) {
-            Block.byId[l].a(this.world, this.player, i, j, k, i1);
-            ((EntityPlayer) this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
+            if (l != Block.MOB_SPAWNER.id) {
+                Block.byId[l].a((World)this.world, this.player, i, j, k, i1);
+            } else {
+                Block.byId[l].a((World)this.world, this.player, i, j, k, ub);
+            }
+            ((EntityPlayer)this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
         }
 
         if (itemstack != null) {

@@ -11,6 +11,9 @@ public class Packet15Place extends Packet {
     public int c;
     public int face;
     public ItemStack itemstack;
+    public double xPlaced;
+    public double yPlaced;
+    public double zPlaced;
 
     public Packet15Place() {}
 
@@ -29,6 +32,10 @@ public class Packet15Place extends Packet {
         } else {
             this.itemstack = null;
         }
+        
+        this.xPlaced = datainputstream.readDouble();
+        this.yPlaced = datainputstream.readDouble();
+        this.zPlaced = datainputstream.readDouble();
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {
@@ -43,6 +50,9 @@ public class Packet15Place extends Packet {
             dataoutputstream.writeByte(this.itemstack.count);
             dataoutputstream.writeShort(this.itemstack.getData());
         }
+        dataoutputstream.writeDouble(this.xPlaced);
+        dataoutputstream.writeDouble(this.yPlaced);
+        dataoutputstream.writeDouble(this.zPlaced);
     }
 
     public void a(NetHandler nethandler) {

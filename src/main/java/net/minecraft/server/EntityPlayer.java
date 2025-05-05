@@ -29,6 +29,7 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
     private ItemStack[] bN = new ItemStack[]{null, null, null, null, null};
     private int bO = 0;
     public boolean h;
+    public float smartMovingHeight = 1.8f;
 
     public EntityPlayer(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager) {
         super(world);
@@ -101,8 +102,9 @@ public class EntityPlayer extends EntityHuman implements ICrafting {
         this.height = 0.0F;
     }
 
+    @Override
     public float t() {
-        return 1.62F;
+        return this.smartMovingHeight - 1.8f + 1.62f;
     }
 
     public void m_() {

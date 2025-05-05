@@ -90,23 +90,23 @@ public class BlockMinecartTrack extends Block {
 
             boolean flag = false;
 
-            if (!world.e(i, j - 1, k)) {
+            if (!world.csbt(i, j - 1, k)) {
                 flag = true;
             }
 
-            if (j1 == 2 && !world.e(i + 1, j, k)) {
+            if (j1 == 2 && !world.csbt(i + 1, j, k)) {
                 flag = true;
             }
 
-            if (j1 == 3 && !world.e(i - 1, j, k)) {
+            if (j1 == 3 && !world.csbt(i - 1, j, k)) {
                 flag = true;
             }
 
-            if (j1 == 4 && !world.e(i, j, k - 1)) {
+            if (j1 == 4 && !world.csbt(i, j, k - 1)) {
                 flag = true;
             }
 
-            if (j1 == 5 && !world.e(i, j, k + 1)) {
+            if (j1 == 5 && !world.csbt(i, j, k + 1)) {
                 flag = true;
             }
 

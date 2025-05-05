@@ -293,6 +293,7 @@ public class InventoryPlayer implements IInventory {
         }
     }
 
+    /*
     public int g() {
         int i = 0;
         int j = 0;
@@ -317,6 +318,16 @@ public class InventoryPlayer implements IInventory {
         } else {
             return (i - 1) * j / k + 1;
         }
+    }*/
+    
+    public int g() {
+        int i = 0;
+        for (int l = 0; l < this.armor.length; ++l) {
+            if (this.armor[l] != null && this.armor[l].getItem() instanceof ItemArmor) {
+            	i += ((ItemArmor)this.armor[l].getItem()).bbl;
+            }
+        }
+        return i;
     }
 
     public void c(int i) {

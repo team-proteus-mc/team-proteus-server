@@ -19,14 +19,20 @@ public class TileEntityNote extends TileEntity {
             this.note = 0;
         }
 
-        if (this.note > 24) {
-            this.note = 24;
+        if (this.note > 48) {
+            this.note = 48;
         }
     }
 
-    public void a() {
-        this.note = (byte) ((this.note + 1) % 25);
-        this.update();
+    public void a(boolean crouch) {
+        if (crouch) {
+            this.note = (byte)((this.note + 48) % 49);
+            this.update();
+        } else {
+            this.note = (byte)((this.note + 1) % 49);
+            this.update();
+        }
+        ((WorldServer)this.world).server.serverConfigurationManager.sendPacketNearby((double)this.x + 0.5, (double)this.y + 0.5, (double)this.z + 0.5, 256.0, ((WorldServer)this.world).dimension, this.f());
     }
 
     public void play(World world, int i, int j, int k) {

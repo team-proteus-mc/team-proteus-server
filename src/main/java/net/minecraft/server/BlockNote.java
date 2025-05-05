@@ -30,9 +30,9 @@ public class BlockNote extends BlockContainer {
             return true;
         } else {
             TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
-
-            tileentitynote.a();
+            tileentitynote.a(entityhuman.isSneaking());
             tileentitynote.play(world, i, j, k);
+            ((EntityPlayer)entityhuman).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, world));
             return true;
         }
     }
@@ -40,7 +40,6 @@ public class BlockNote extends BlockContainer {
     public void b(World world, int i, int j, int k, EntityHuman entityhuman) {
         if (!world.isStatic) {
             TileEntityNote tileentitynote = (TileEntityNote) world.getTileEntity(i, j, k);
-
             tileentitynote.play(world, i, j, k);
         }
     }

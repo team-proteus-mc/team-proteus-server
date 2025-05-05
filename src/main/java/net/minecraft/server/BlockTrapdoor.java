@@ -105,11 +105,6 @@ public class BlockTrapdoor extends Block {
                 --j1;
             }
 
-            if (!world.e(j1, j, k1)) {
-                world.setTypeId(i, j, k, 0);
-                this.g(world, i, j, k, i1);
-            }
-
             // CraftBukkit start
             if (l > 0 && Block.byId[l] != null && Block.byId[l].isPowerSource()) {
                 org.bukkit.World bworld = world.getWorld();
@@ -156,7 +151,7 @@ public class BlockTrapdoor extends Block {
         world.setData(i, j, k, b0);
         doPhysics(world, i, j, k, Block.REDSTONE_WIRE.id); // CraftBukkit
     }
-
+/*
     public boolean canPlace(World world, int i, int j, int k, int l) {
         if (l == 0) {
             return false;
@@ -182,7 +177,7 @@ public class BlockTrapdoor extends Block {
             return world.e(i, j, k);
         }
     }
-
+*/
     public static boolean d(int i) {
         return (i & 4) != 0;
     }

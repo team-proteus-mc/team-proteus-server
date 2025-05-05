@@ -416,28 +416,32 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             }
 
             this.player.setLocation(d1, d2, d3, f2, f3);
-            boolean flag2 = worldserver.getEntities(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).size() == 0;
-
-            if (flag && (flag1 || !flag2) && !this.player.isSleeping()) {
-                this.a(this.x, this.y, this.z, f2, f3);
-                return;
-            }
-
-            AxisAlignedBB axisalignedbb = this.player.boundingBox.clone().b((double) f4, (double) f4, (double) f4).a(0.0D, -0.55D, 0.0D);
-
-            if (!this.minecraftServer.allowFlight && !worldserver.b(axisalignedbb)) {
-                if (d6 >= -0.03125D) {
-                    ++this.h;
-                    if (this.h > 80) {
-                        a.warning(this.player.name + " was kicked for floating too long!");
-                        this.disconnect("Flying is not enabled on this server");
-                        return;
-                    }
+            if (!this.player.bt) { 
+	            boolean flag2 = worldserver.getEntities(this.player, this.player.boundingBox.clone().shrink((double) f4, (double) f4, (double) f4)).size() == 0;
+	
+                if (flag && !flag2 && this.player.smartMovingHeight < 1.0f) {
+                    flag = false;
                 }
-            } else {
-                this.h = 0;
+	            if (flag && (flag1 || !flag2) && !this.player.isSleeping()) {
+	                this.a(this.x, this.y, this.z, f2, f3);
+	                return;
+	            }
+	
+	            AxisAlignedBB axisalignedbb = this.player.boundingBox.clone().b((double) f4, (double) f4, (double) f4).a(0.0D, -0.55D, 0.0D);
+	
+	            if (!this.minecraftServer.allowFlight && !worldserver.b(axisalignedbb)) {
+	                if (d6 >= -0.03125D) {
+	                    ++this.h;
+	                    if (this.h > 80) {
+	                        a.warning(this.player.name + " was kicked for floating too long!");
+	                        this.disconnect("Flying is not enabled on this server");
+	                        return;
+	                    }
+	                }
+	            } else {
+	                this.h = 0;
+	            }
             }
-
             this.player.onGround = packet10flying.g;
             this.minecraftServer.serverConfigurationManager.d(this.player);
             this.player.b(this.player.locY - d0, packet10flying.g);
@@ -611,6 +615,16 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
         } else {
             this.lastMaterial = packet15place.itemstack == null ? -1 : packet15place.itemstack.id;
             this.lastPacket = packet15place.timestamp;
+        }
+        
+        if (!(Double.isNaN(packet15place.xPlaced) || Double.isNaN(packet15place.yPlaced) || Double.isNaN(packet15place.zPlaced))) {
+            this.player.hitx = packet15place.xPlaced;
+            this.player.hity = packet15place.yPlaced;
+            this.player.hitz = packet15place.zPlaced;
+        } else {
+            this.player.hitx = 0.5;
+            this.player.hity = 0.5;
+            this.player.hitz = 0.5;
         }
 
         // CraftBukkit - if rightclick decremented the item, always send the update packet.
@@ -847,6 +861,16 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     private void handleCommand(String s) {
+        if (s.equals("/nc") || s.equals("/noclip")) {
+            if (this.minecraftServer.serverConfigurationManager.isOp(this.player.name)) {
+                this.player.bt = !this.player.bt;
+                this.player.netServerHandler.sendPacket(new zzx("true", "§aToggled no-clip :" + (this.player.bt ? "on!" : "off!")));
+            } else {
+                this.player.bt = false;
+                this.player.netServerHandler.sendPacket(new zzx("false", "§cYou do not have permission to execute this command."));
+            }
+            return;
+        }
         // CraftBukkit start
         CraftPlayer player = this.getPlayer();
 
@@ -1201,6 +1225,28 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 worldserver.notify(j, k, i);
             }
         }
+    }
+    
+    @Override
+    public void a(Packet244PlayerStance p) {
+        float f;
+        this.player.smartMovingHeight = f = this.processStatePacket(p.stance, p.height);
+        this.minecraftServer.serverConfigurationManager.sendPacketNearby(this.player, this.player.locX, this.player.locY, this.player.locZ, 128.0, ((WorldServer)this.player.world).dimension, p);
+    }
+
+    private float processStatePacket(int state, float height) {
+        int actualFeetClimbType = state & 0x1F;
+        int actualHandsClimbType = (state >>>= 4) & 0x1F;
+        boolean _isJumping = ((state >>>= 4) & 1) != 0;
+        boolean isDiving = ((state >>>= 1) & 1) != 0;
+        boolean isDipping = ((state >>>= 1) & 1) != 0;
+        boolean isSwimming = ((state >>>= 1) & 1) != 0;
+        boolean isCrawlClimbing = ((state >>>= 1) & 1) != 0;
+        boolean isCrawling = ((state >>>= 1) & 1) != 0;
+        boolean isClimbing = ((state >>>= 1) & 1) != 0;
+        boolean isSmall = ((state >>>= 1) & 1) != 0;
+        float heightOffset = isSmall ? -1.0f : 0.0f;
+        return 1.8f + heightOffset;
     }
 
     public boolean c() {

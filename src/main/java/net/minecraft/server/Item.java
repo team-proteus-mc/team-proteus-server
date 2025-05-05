@@ -107,11 +107,27 @@ public class Item {
     public static Item CAKE = (new ItemReed(98, Block.CAKE_BLOCK)).c(1).a(13, 1).a("cake");
     public static Item BED = (new ItemBed(99)).c(1).a(13, 2).a("bed");
     public static Item DIODE = (new ItemReed(100, Block.DIODE_OFF)).a(6, 5).a("diode");
-    public static Item COOKIE = (new ItemCookie(101, 1, false, 8)).a(12, 5).a("cookie");
+    public static Item COOKIE = (new ItemCookie(101, 1, false, 16)).a(12, 5).a("cookie");
     public static ItemWorldMap MAP = (ItemWorldMap) (new ItemWorldMap(102)).a(12, 3).a("map");
     public static ItemShears SHEARS = (ItemShears) (new ItemShears(103)).a(13, 5).a("shears");
-    public static Item GOLD_RECORD = (new ItemRecord(2000, "13")).a(0, 15).a("record");
-    public static Item GREEN_RECORD = (new ItemRecord(2001, "cat")).a(1, 15).a("record");
+    public static Item BEEF = new ItemFood(104, 3, true).a(9, 6).a("beefRaw");
+    public static Item STEAK = new ItemFood(105, 8, true).a(10, 6).a("beefCooked");
+    public static Item CHICKEN = new ItemFood(106, 1, true).a(9, 7).a("chickenRaw");
+    public static Item GRILLED_CHICKEN = new ItemFood(107, 6, true).a(10, 7).a("chickenCooked");
+    
+    public static Item GOLD_RECORD = new ItemRecord(2000, "13").a(0, 15).a("record");
+    public static Item GREEN_RECORD = new ItemRecord(2001, "cat").a(1, 15).a("record");
+    public static Item BLOCKS_RECORD = new ItemRecord(2002, "blocks").a(2, 15).a("record");
+    public static Item CHIRP_RECORD = new ItemRecord(2003, "chirp").a(3, 15).a("record");
+    public static Item FAR_RECORD = new ItemRecord(2004, "far").a(4, 15).a("record");
+    public static Item MALL_RECORD = new ItemRecord(2005, "mall").a(5, 15).a("record");
+    public static Item MELLOHI_RECORD = new ItemRecord(2006, "mellohi").a(6, 15).a("record");
+    public static Item STAL_RECORD = new ItemRecord(2007, "stal").a(7, 15).a("record");
+    public static Item STRAD_RECORD = new ItemRecord(2008, "strad").a(8, 15).a("record");
+    public static Item WARD_RECORD = new ItemRecord(2009, "ward").a(9, 15).a("record");
+    public static Item BROKEN_RECORD = new ItemRecord(2010, "11").a(10, 15).a("record");
+    public static Item WAWN_RECORD = new ItemRecord(2011, "wherearewenow").a(11, 15).a("record");
+    
     public final int id;
     protected int maxStackSize = 64;
     private int durability = 0;
