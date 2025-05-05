@@ -1,5 +1,7 @@
 # Team Proteus Server
-Based off of Project Poseidon.
+Based off of Project Poseidon, customized for the Team Proteus Server.
+
+# Original README:
 
 # Project-Poseidon
 ![](/img/banner.png)
