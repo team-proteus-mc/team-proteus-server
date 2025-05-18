@@ -1,4 +1,7 @@
 # Team Proteus Server
+
+[!NOTE] Team Proteus has switched from Minecraft version Beta 1.7.3 to Release 1.5.2, so this repository is now deprecated.
+
 Based off of Project Poseidon, customized for the Team Proteus Server.
 
 # Original README:
