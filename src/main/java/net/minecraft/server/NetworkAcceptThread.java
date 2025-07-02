@@ -27,7 +27,8 @@ class NetworkAcceptThread extends Thread {
                 if (socket != null) {
                     InetAddress inetaddress = socket.getInetAddress();
 
-                    if (hashmap.containsKey(inetaddress) && !"127.0.0.1".equals(inetaddress.getHostAddress()) && System.currentTimeMillis() - ((Long) hashmap.get(inetaddress)).longValue() < 5000L) {
+                    // Team Proteus -- reduce login spam threshold
+                    if (hashmap.containsKey(inetaddress) && !"127.0.0.1".equals(inetaddress.getHostAddress()) && System.currentTimeMillis() - ((Long) hashmap.get(inetaddress)).longValue() < 1000L) {
                         hashmap.put(inetaddress, Long.valueOf(System.currentTimeMillis()));
                         socket.close();
                     } else {
