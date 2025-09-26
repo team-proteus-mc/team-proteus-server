@@ -38,7 +38,6 @@ public class ThreadLoginVerifier extends Thread {
             SessionAPI.hasJoined(loginPacket.name, netLoginHandler.getServerID(), getIP(), (int responseCode, String username, String uuid, String ip) ->
             {
                 boolean checkIP = ip == "127.0.0.1" || ip == "localhost";
-                
                 // make sure the request didn't fail (-1), and the response wasn't empty (204)
                 if (responseCode != -1 && responseCode != 204)
                 {

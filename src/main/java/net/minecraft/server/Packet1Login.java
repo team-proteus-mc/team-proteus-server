@@ -27,7 +27,13 @@ public class Packet1Login extends Packet {
         this.name = a(datainputstream, 16);
         this.c = datainputstream.readLong();
         this.d = datainputstream.readByte();
-        this.tpv = datainputstream.readInt();
+        if (this.a == -14) {
+        	this.a = 14;
+        	this.tpv = datainputstream.readInt();
+        } else {
+        	this.tpv = -1;
+        }
+        
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException {

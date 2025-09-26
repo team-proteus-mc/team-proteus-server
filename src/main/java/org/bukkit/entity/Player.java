@@ -347,6 +347,10 @@ public interface Player extends HumanEntity, CommandSender, OfflinePlayer {
      * @return True if the provided player is not being hidden from this player
      */
     public boolean canSee(Player player);
+    
+    public boolean isPlayerVanished();
+    
+    public void setPlayerVanished(boolean bool);
 
     public void sendPacket(final Player player, final Packet packet);
 

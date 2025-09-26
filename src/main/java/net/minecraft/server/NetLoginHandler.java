@@ -91,6 +91,13 @@ public class NetLoginHandler extends NetHandler {
         }
         receivedLoginPacket = true;
         this.g = packet1login.name;
+        
+        if (packet1login.tpv == -1) {
+        	a.warning("Player \"" + this.g + "\" tried to join using a vanilla client!");
+        	this.disconnect("\u00A74You do not have access!\u00A7f Contact @SeveringHams on Discord for access.");
+        	return;
+        }
+        
         if (packet1login.a != 14) {
             if (packet1login.a > 14) {
                 this.disconnect("Outdated server! I'm still on Beta 1.7.3");
@@ -197,7 +204,9 @@ public class NetLoginHandler extends NetHandler {
     }
 
     public void a(String s, Object[] aobject) {
-        a.info(this.b() + " lost connection");
+    	if (this.g != null) {
+    		a.info(this.b() + " lost connection");
+    	}
         this.c = true;
     }
 

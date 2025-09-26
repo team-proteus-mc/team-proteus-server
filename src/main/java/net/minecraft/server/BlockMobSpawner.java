@@ -19,6 +19,11 @@ public class BlockMobSpawner extends BlockContainer {
     public int a(Random random) {
         return 0;
     }
+    
+    @Override
+    public int a_(int i) {
+    	return i;
+    }
 
     public boolean a() {
         return false;

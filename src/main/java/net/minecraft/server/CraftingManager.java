@@ -37,26 +37,35 @@ public class CraftingManager {
         this.registerShapedRecipe(new ItemStack(Block.STONE_BRICKS, 4, 1), "A#", "#A", Character.valueOf('#'), Block.STONE, Character.valueOf('A'), Block.MOSSY_COBBLESTONE);
         this.registerShapedRecipe(new ItemStack(Block.STONE_BRICKS, 2, 3), "##", "##", Character.valueOf('#'), new ItemStack(Block.STEP, 1, 5));
         this.registerShapedRecipe(new ItemStack(Block.TNT, 1), "X#X", "#X#", "X#X", Character.valueOf('X'), Item.SULPHUR, Character.valueOf('#'), Block.SAND);
+       
         this.registerShapedRecipe(new ItemStack(Block.STEP, 6, 0), "###", Character.valueOf('#'), Block.STONE);
         this.registerShapedRecipe(new ItemStack(Block.STEP, 6, 1), "###", Character.valueOf('#'), Block.SANDSTONE);
         this.registerShapedRecipe(new ItemStack(Block.STEP, 6, 2), "###", Character.valueOf('#'), Block.WOOD);
-        this.registerShapedRecipe(new ItemStack(Block.STEP, 6, 3), "###", Character.valueOf('#'), Block.COBBLESTONE);
+        this.registerShapedRecipe(new ItemStack(Block.STEP, 6, 3), "###", Character.valueOf('#'), new ItemStack(Block.COBBLESTONE, 1, 0));
         this.registerShapedRecipe(new ItemStack(Block.STEP, 6, 4), "###", Character.valueOf('#'), Block.BRICK);
-        this.registerShapedRecipe(new ItemStack(Block.STEP, 6, 5), "###", Character.valueOf('#'), Block.STONE_BRICKS);
+        this.registerShapedRecipe(new ItemStack(Block.STEP, 6, 5), "###", Character.valueOf('#'), new ItemStack(Block.STONE_BRICKS, 1, 0));
+        this.registerShapedRecipe(new ItemStack(Block.STEP, 6, 6), "###", Character.valueOf('#'), new ItemStack(Block.COBBLESTONE, 1, 1));
+       
         this.registerShapedRecipe(new ItemStack(Block.STONE, 1), "#", "#", Character.valueOf('#'), new ItemStack(Block.STEP, 1, 0));
         this.registerShapedRecipe(new ItemStack(Block.SANDSTONE, 1), "#", "#", Character.valueOf('#'), new ItemStack(Block.STEP, 1, 1));
         this.registerShapedRecipe(new ItemStack(Block.WOOD, 1), "#", "#", Character.valueOf('#'), new ItemStack(Block.STEP, 1, 2));
-        this.registerShapedRecipe(new ItemStack(Block.COBBLESTONE, 1), "#", "#", Character.valueOf('#'), new ItemStack(Block.STEP, 1, 3));
+        this.registerShapedRecipe(new ItemStack(Block.COBBLESTONE, 1, 0), "#", "#", Character.valueOf('#'), new ItemStack(Block.STEP, 1, 3));
         this.registerShapedRecipe(new ItemStack(Block.BRICK, 1), "#", "#", Character.valueOf('#'), new ItemStack(Block.STEP, 1, 4));
-        this.registerShapedRecipe(new ItemStack(Block.STONE_BRICKS, 1), "#", "#", Character.valueOf('#'), new ItemStack(Block.STEP, 1, 5));
+        this.registerShapedRecipe(new ItemStack(Block.STONE_BRICKS, 1, 0), "#", "#", Character.valueOf('#'), new ItemStack(Block.STEP, 1, 5));
+        this.registerShapedRecipe(new ItemStack(Block.COBBLESTONE, 1, 1), "#", "#", Character.valueOf('#'), new ItemStack(Block.STEP, 1, 6));
+        
         this.registerShapedRecipe(new ItemStack(Block.WOOD, 3), "##", "##", Character.valueOf('#'), Block.WOOD_STAIRS);
-        this.registerShapedRecipe(new ItemStack(Block.COBBLESTONE, 3), "##", "##", Character.valueOf('#'), Block.COBBLESTONE_STAIRS);
+        this.registerShapedRecipe(new ItemStack(Block.COBBLESTONE, 3, 0), "##", "##", Character.valueOf('#'), Block.COBBLESTONE_STAIRS);
+        this.registerShapedRecipe(new ItemStack(Block.COBBLESTONE, 3, 1), "##", "##", Character.valueOf('#'), Block.OLD_COBBLESTONE_STAIRS);
         this.registerShapedRecipe(new ItemStack(Block.BRICK, 3), "##", "##", Character.valueOf('#'), Block.BRICK_STAIRS);
-        this.registerShapedRecipe(new ItemStack(Block.STONE_BRICKS, 3), "##", "##", Character.valueOf('#'), Block.STONE_BRICK_STAIRS);
+        this.registerShapedRecipe(new ItemStack(Block.STONE_BRICKS, 3, 0), "##", "##", Character.valueOf('#'), Block.STONE_BRICK_STAIRS);
+        
         this.registerShapedRecipe(new ItemStack(Block.WOOD_STAIRS, 8), "#  ", "## ", "###", Character.valueOf('#'), Block.WOOD);
-        this.registerShapedRecipe(new ItemStack(Block.COBBLESTONE_STAIRS, 8), "#  ", "## ", "###", Character.valueOf('#'), Block.COBBLESTONE);
+        this.registerShapedRecipe(new ItemStack(Block.COBBLESTONE_STAIRS, 8), "#  ", "## ", "###", Character.valueOf('#'), new ItemStack(Block.COBBLESTONE, 1, 0));
+        this.registerShapedRecipe(new ItemStack(Block.OLD_COBBLESTONE_STAIRS, 8), "#  ", "## ", "###", Character.valueOf('#'), new ItemStack(Block.COBBLESTONE, 1, 1));
         this.registerShapedRecipe(new ItemStack(Block.BRICK_STAIRS, 8), "#  ", "## ", "###", Character.valueOf('#'), Block.BRICK);
-        this.registerShapedRecipe(new ItemStack(Block.STONE_BRICK_STAIRS, 8), "#  ", "## ", "###", Character.valueOf('#'), Block.STONE_BRICKS);
+        this.registerShapedRecipe(new ItemStack(Block.STONE_BRICK_STAIRS, 8), "#  ", "## ", "###", Character.valueOf('#'), new ItemStack(Block.STONE_BRICKS, 1, 0));
+        
         this.registerShapedRecipe(new ItemStack(Block.LADDER, 4), "# #", "###", "# #", Character.valueOf('#'), Item.STICK);
         this.registerShapedRecipe(new ItemStack(Item.WOOD_DOOR, 1), "##", "##", "##", Character.valueOf('#'), Block.WOOD);
         this.registerShapedRecipe(new ItemStack(Block.TRAP_DOOR, 2), "###", "###", Character.valueOf('#'), Block.WOOD);

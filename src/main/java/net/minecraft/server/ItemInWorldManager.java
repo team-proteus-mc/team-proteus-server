@@ -156,6 +156,7 @@ public class ItemInWorldManager {
         int ub = 0;
         if (l != 0 && this.world.getTileEntity(i, j, k) != null && this.world.getTypeId(i, j, k) == Block.MOB_SPAWNER.id) {
             ub = EntityTypes.nameToID(((TileEntityMobSpawner)this.world.getTileEntity((int)i, (int)j, (int)k)).mobName);
+            System.out.println(ub);
         }
 
         // CraftBukkit start
@@ -187,10 +188,10 @@ public class ItemInWorldManager {
         ItemStack itemstack = this.player.G();
 
         if (flag && this.player.b(Block.byId[l])) {
-            if (l != Block.MOB_SPAWNER.id) {
-                Block.byId[l].a((World)this.world, this.player, i, j, k, i1);
+            if (l == Block.MOB_SPAWNER.id) {
+            	Block.MOB_SPAWNER.a((World)this.world, this.player, i, j, k, ub);
             } else {
-                Block.byId[l].a((World)this.world, this.player, i, j, k, ub);
+                Block.byId[l].a((World)this.world, this.player, i, j, k, i1);
             }
             ((EntityPlayer)this.player).netServerHandler.sendPacket(new Packet53BlockChange(i, j, k, this.world));
         }
@@ -228,26 +229,31 @@ public class ItemInWorldManager {
         // CraftBukkit start - Interact
         boolean result = false;
         if (i1 > 0) {
-            PlayerInteractEvent event = CraftEventFactory.callPlayerInteractEvent(entityhuman, Action.RIGHT_CLICK_BLOCK, i, j, k, l, itemstack);
-            if (event.useInteractedBlock() == Event.Result.DENY) {
-                // If we denied a door from opening, we need to send a correcting update to the client, as it already opened the door.
-                if (i1 == Block.WOODEN_DOOR.id) {
-                    boolean bottom = (world.getData(i, j, k) & 8) == 0;
-                    ((EntityPlayer) entityhuman).netServerHandler.sendPacket(new Packet53BlockChange(i, j + (bottom ? 1 : -1), k, world));
+        	PlayerInteractEvent event = CraftEventFactory.callPlayerInteractEvent(entityhuman, Action.RIGHT_CLICK_BLOCK, i, j, k, l, itemstack);
+        	if (entityhuman.isSneaking() && itemstack != null) {
+        		result = itemstack.placeItem(entityhuman, world, i, j, k, l);
+                if (((!result && event.useItemInHand() != Event.Result.DENY) || event.useItemInHand() == Event.Result.ALLOW)) {
+                	this.useItem(entityhuman, world, itemstack);
                 }
-                result = (event.useItemInHand() != Event.Result.ALLOW);
-            } else {
-                result = Block.byId[i1].interact(world, i, j, k, entityhuman);
-            }
-
-            if (itemstack != null && !result) {
-                result = itemstack.placeItem(entityhuman, world, i, j, k, l);
-            }
-
+        	} else {
+                if (event.useInteractedBlock() == Event.Result.DENY) {
+                    // If we denied a door from opening, we need to send a correcting update to the client, as it already opened the door.
+                    if (i1 == Block.WOODEN_DOOR.id) {
+                        boolean bottom = (world.getData(i, j, k) & 8) == 0;
+                        ((EntityPlayer) entityhuman).netServerHandler.sendPacket(new Packet53BlockChange(i, j + (bottom ? 1 : -1), k, world));
+                    }
+                    result = (event.useItemInHand() != Event.Result.ALLOW);
+                } else {
+                    result = Block.byId[i1].interact(world, i, j, k, entityhuman);
+                } 
+                if (itemstack != null && !result) {
+                	result = itemstack.placeItem(entityhuman, world, i, j, k, l);
+                }
+                if (itemstack != null && ((!result && event.useItemInHand() != Event.Result.DENY) || event.useItemInHand() == Event.Result.ALLOW)) {
+                	this.useItem(entityhuman, world, itemstack);
+                }
+        	}
             // If we have 'true' and no explicit deny *or* an explicit allow -- run the item part of the hook
-            if (itemstack != null && ((!result && event.useItemInHand() != Event.Result.DENY) || event.useItemInHand() == Event.Result.ALLOW)) {
-                this.useItem(entityhuman, world, itemstack);
-            }
         }
         return result;
         // CraftBukkit end

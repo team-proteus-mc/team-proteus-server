@@ -216,10 +216,6 @@ public abstract class NetHandler {
         this.a((Packet)packet132setnote);
     }
 
-    public void a(Packet244PlayerStance packet) {
-        this.a((Packet)packet);
-    }
-
     public void a(Packet61 packet61) {
         this.a((Packet) packet61);
     }

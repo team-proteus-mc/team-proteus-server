@@ -30,7 +30,7 @@ public class Block {
     public static final Block STONE = new BlockStone(1, 1).c(1.5f).b(10.0f).a(h).a("stone").gt();
     public static final BlockGrass GRASS = (BlockGrass)new BlockGrass(2).c(0.6f).a(g).a("grass").gt();
     public static final Block DIRT = new BlockDirt(3, 2).c(0.5f).a(f).a("dirt");
-    public static final Block COBBLESTONE = new Block(4, 16, Material.STONE).c(2.0f).b(10.0f).a(h).a("stonebrick");
+    public static final Block COBBLESTONE = new BlockCobblestone(4).c(2.0f).b(10.0f).a(h).a("stonebrick");
     public static final Block WOOD = new Block(5, 4, Material.WOOD).c(2.0f).b(5.0f).a(e).a("wood").g();
     public static final Block SAPLING = new BlockSapling(6, 15).c(0.0f).a(g).a("sapling").g();
     public static final Block BEDROCK = new Block(7, 17, Material.STONE).i().b(6000000.0f).a(h).a("bedrock").n();
@@ -40,15 +40,15 @@ public class Block {
     public static final Block STATIONARY_LAVA = new BlockStationary(11, Material.LAVA).c(100.0f).a(1.0f).f(255).a("lava").n().g();
     public static final Block SAND = new BlockSand(12, 18).c(0.5f).a(l).a("sand");
     public static final Block GRAVEL = new BlockGravel(13, 19).c(0.6f).a(f).a("gravel");
-    public static final Block GOLD_ORE = new BlockOre(14, 32).c(3.0f).b(5.0f).a(h).a("oreGold");
-    public static final Block IRON_ORE = new BlockOre(15, 33).c(3.0f).b(5.0f).a(h).a("oreIron");
+    public static final Block GOLD_ORE = new BlockOre(14, 32).c(3.0f).b(5.0f).a(h).a("oreGold").sphl(2);
+    public static final Block IRON_ORE = new BlockOre(15, 33).c(3.0f).b(5.0f).a(h).a("oreIron").sphl(1);
     public static final Block COAL_ORE = new BlockOre(16, 34).c(3.0f).b(5.0f).a(h).a("oreCoal").gt();
     public static final Block LOG = new BlockLog(17).c(2.0f).a(e).a("log").g();
     public static final BlockLeaves LEAVES = (BlockLeaves)new BlockLeaves(18, 52).c(0.2f).f(1).a(g).a("leaves").n().g();
     public static final Block SPONGE = new BlockSponge(19).c(0.6f).a(g).a("sponge");
     public static final Block GLASS = new BlockGlass(20, 49, Material.SHATTERABLE, false).c(0.3f).a(j).a("glass").gt();
-    public static final Block LAPIS_ORE = new BlockOre(21, 160).c(3.0f).b(5.0f).a(h).a("oreLapis").gt();
-    public static final Block LAPIS_BLOCK = new Block(22, 144, Material.STONE).c(3.0f).b(5.0f).a(h).a("blockLapis");
+    public static final Block LAPIS_ORE = new BlockOre(21, 160).c(3.0f).b(5.0f).a(h).a("oreLapis").gt().sphl(1);
+    public static final Block LAPIS_BLOCK = new Block(22, 144, Material.STONE).c(3.0f).b(5.0f).a(h).a("blockLapis").sphl(1);
     public static final Block DISPENSER = new BlockDispenser(23).c(3.5f).a(h).a("dispenser").g();
     public static final Block SANDSTONE = new BlockSandStone(24).a(h).c(0.8f).a("sandStone");
     public static final Block NOTE_BLOCK = new BlockNote(25).c(0.8f).a("musicBlock").g();
@@ -61,29 +61,29 @@ public class Block {
     public static final BlockDeadBush DEAD_BUSH = (BlockDeadBush)new BlockDeadBush(32, 55).c(0.0f).a(g).a("deadbush");
     public static final Block PISTON = new BlockPiston(33, 107, false).a("pistonBase");
     public static final BlockPistonExtension PISTON_EXTENSION = new BlockPistonExtension(34, 107);
-    public static final Block WOOL = new BlockCloth().c(0.8f).a(k).a("cloth").g();
+    public static final Block WOOL = new BlockCloth(35).c(0.8f).a(k).a("cloth").g();
     public static final BlockPistonMoving PISTON_MOVING = new BlockPistonMoving(36);
     public static final BlockFlower YELLOW_FLOWER = (BlockFlower)new BlockFlower(37, 13).c(0.0f).a(g).a("flower");
     public static final BlockFlower RED_ROSE = (BlockFlower)new BlockFlower(38, 12).c(0.0f).a(g).a("rose");
     public static final BlockFlower BROWN_MUSHROOM = (BlockFlower)new BlockMushroom(39, 29).c(0.0f).a(g).a(0.125f).a("mushroom");
     public static final BlockFlower RED_MUSHROOM = (BlockFlower)new BlockMushroom(40, 28).c(0.0f).a(g).a("mushroom");
-    public static final Block GOLD_BLOCK = new BlockOreBlock(41, 23).c(3.0f).b(10.0f).a(i).a("blockGold");
-    public static final Block IRON_BLOCK = new BlockOreBlock(42, 22).c(5.0f).b(10.0f).a(i).a("blockIron");
+    public static final Block GOLD_BLOCK = new BlockOreBlock(41, 23).c(3.0f).b(10.0f).a(i).a("blockGold").sphl(2);
+    public static final Block IRON_BLOCK = new BlockOreBlock(42, 22).c(5.0f).b(10.0f).a(i).a("blockIron").sphl(1);
     public static final Block DOUBLE_STEP = new BlockStep(43, true).c(2.0f).b(10.0f).a(h).a("stoneSlab");
     public static final Block STEP = new BlockStep(44, false).c(2.0f).b(10.0f).a(h).a("stoneSlab");
     public static final Block BRICK = new Block(45, 7, Material.STONE).c(2.0f).b(10.0f).a(h).a("brick");
     public static final Block TNT = new BlockTNT(46, 8).c(0.0f).a(g).a("tnt");
     public static final Block BOOKSHELF = new BlockBookshelf(47, 35).c(1.5f).a(e).a("bookshelf").gt();
     public static final Block MOSSY_COBBLESTONE = new Block(48, 36, Material.STONE).c(2.0f).b(10.0f).a(h).a("stoneMoss");
-    public static final Block OBSIDIAN = new BlockObsidian(49, 37).c(10.0f).b(2000.0f).a(h).a("obsidian");
+    public static final Block OBSIDIAN = new BlockObsidian(49, 37).c(10.0f).b(2000.0f).a(h).a("obsidian").sphl(3);
     public static final Block TORCH = new BlockTorch(50, 80).c(0.0f).a(0.9375f).a(e).a("torch").g();
     public static final BlockFire FIRE = (BlockFire)new BlockFire(51, 31).c(0.0f).a(1.0f).a(e).a("fire").n().g();
     public static final Block MOB_SPAWNER = new BlockMobSpawner(52, 65).c(5.0f).a(i).a("mobSpawner").n().gt();
     public static final Block WOOD_STAIRS = new BlockStairs(53, WOOD).a("stairsWood").g();
     public static final Block CHEST = new BlockChest(54).c(2.5f).a(e).a("chest").g();
     public static final Block REDSTONE_WIRE = new BlockRedstoneWire(55, 164).c(0.0f).a(d).a("redstoneDust").n().g();
-    public static final Block DIAMOND_ORE = new BlockOre(56, 50).c(3.0f).b(5.0f).a(h).a("oreDiamond").gt();
-    public static final Block DIAMOND_BLOCK = new BlockOreBlock(57, 24).c(5.0f).b(10.0f).a(i).a("blockDiamond");
+    public static final Block DIAMOND_ORE = new BlockOre(56, 50).c(3.0f).b(5.0f).a(h).a("oreDiamond").gt().sphl(2);
+    public static final Block DIAMOND_BLOCK = new BlockOreBlock(57, 24).c(5.0f).b(10.0f).a(i).a("blockDiamond").sphl(2);
     public static final Block WORKBENCH = new BlockWorkbench(58).c(2.5f).a(e).a("workbench");
     public static final Block CROPS = new BlockCrops(59, 88).c(0.0f).a(g).a("crops").n().g();
     public static final Block SOIL = new BlockSoil(60).c(0.6f).a(f).a("farmland");
@@ -99,8 +99,8 @@ public class Block {
     public static final Block STONE_PLATE = new BlockPressurePlate(70, Block.STONE.textureId, EnumMobType.MOBS, Material.STONE).c(0.5f).a(h).a("pressurePlate").g();
     public static final Block IRON_DOOR_BLOCK = new BlockDoor(71, Material.ORE).c(5.0f).a(i).a("doorIron").n().g();
     public static final Block WOOD_PLATE = new BlockPressurePlate(72, Block.WOOD.textureId, EnumMobType.EVERYTHING, Material.WOOD).c(0.5f).a(e).a("pressurePlate").g();
-    public static final Block REDSTONE_ORE = new BlockRedstoneOre(73, 51, false).c(3.0f).b(5.0f).a(h).a("oreRedstone").g().gt();
-    public static final Block GLOWING_REDSTONE_ORE = new BlockRedstoneOre(74, 51, true).a(0.625f).c(3.0f).b(5.0f).a(h).a("oreRedstone").g().gt();
+    public static final Block REDSTONE_ORE = new BlockRedstoneOre(73, 51, false).c(3.0f).b(5.0f).a(h).a("oreRedstone").g().gt().sphl(2);
+    public static final Block GLOWING_REDSTONE_ORE = new BlockRedstoneOre(74, 51, true).a(0.625f).c(3.0f).b(5.0f).a(h).a("oreRedstone").g().gt().sphl(2);
     public static final Block REDSTONE_TORCH_OFF = new BlockRedstoneTorch(75, 115, false).c(0.0f).a(e).a("notGate").g();
     public static final Block REDSTONE_TORCH_ON = new BlockRedstoneTorch(76, 99, true).c(0.0f).a(0.5f).a(e).a("notGate").g();
     public static final Block STONE_BUTTON = new BlockButton(77, Block.STONE.textureId).c(0.5f).a(h).a("button").g();
@@ -127,6 +127,8 @@ public class Block {
     public static final Block STONE_BRICKS = new BlockStoneBrick(98).c(1.5f).b(10.0f).a(h).a("stonebricksmooth");
     public static final Block BRICK_STAIRS = new BlockStairs(99, BRICK).a("stairsStone").g();
     public static final Block STONE_BRICK_STAIRS = new BlockStairs(100, STONE_BRICKS).a("stairsStone").g();
+    public static final Block CLASSIC_WOOL = new BlockClassicCloth(101).c(0.8f).a(k).a("cloth").g();
+    public static final Block OLD_COBBLESTONE_STAIRS = new BlockStairs(102, COBBLESTONE).a("stairsStone").g();
     public static final List<Integer> leafDecayBlacklist = Arrays.asList(PoseidonConfig.getInstance().getTreeBlacklistIDs());
     public int textureId;
     public final int id;
@@ -145,6 +147,7 @@ public class Block {
     public final Material material;
     public float frictionFactor;
     private String name;
+    private byte pickHarvestLevel = 0;
 
     protected Block(int i, Material material) {
         this.bq = true;
@@ -231,7 +234,16 @@ public class Block {
         n[this.id] = flag;
         return this;
     }
-
+    
+    public int gphl() {
+    	return this.pickHarvestLevel;
+    }
+    
+    private Block sphl(int i) {
+    	this.pickHarvestLevel = (byte)i;
+    	return this;
+    }
+    
     public void a(float f, float f1, float f2, float f3, float f4, float f5) {
         this.minX = (double) f;
         this.minY = (double) f1;
@@ -532,8 +544,7 @@ public class Block {
 
     public void a(World world, EntityHuman entityhuman, int i, int j, int k, int l) {
         entityhuman.a(StatisticList.C[this.id], 1);
-        boolean doSilk = false;
-        if (u[this.id] && entityhuman.G() != null && entityhuman.G().getItem() instanceof ItemTool && ((ItemTool)entityhuman.G().getItem()).a == EnumToolMaterial.GOLD) {
+        if (u[this.id] && entityhuman.canSilk()) {
             this.gt(world, i, j, k, l);
         } else {
             this.g(world, i, j, k, l);
@@ -577,6 +588,7 @@ public class Block {
     }
 
     static {
+    	Item.byId[COBBLESTONE.id] = new ItemCobblestone(COBBLESTONE.id - 256);
         Item.byId[WOOL.id] = (new ItemCloth(WOOL.id - 256)).a("cloth");
         Item.byId[LOG.id] = (new ItemLog(LOG.id - 256)).a("log");
         Item.byId[STEP.id] = (new ItemStep(STEP.id - 256)).a("stoneSlab");
@@ -584,8 +596,12 @@ public class Block {
         Item.byId[LEAVES.id] = (new ItemLeaves(LEAVES.id - 256)).a("leaves");
         Item.byId[PISTON.id] = new ItemPiston(PISTON.id - 256);
         Item.byId[PISTON_STICKY.id] = new ItemPiston(PISTON_STICKY.id - 256);
-        Item.byId[Block.MOB_SPAWNER.id] = new ItemSpawner(Block.MOB_SPAWNER.id - 256);
-        Item.byId[Block.STONE_BRICKS.id] = new ItemStoneBrick(Block.STONE_BRICKS.id - 256);
+        Item.byId[MOB_SPAWNER.id] = new ItemSpawner(Block.MOB_SPAWNER.id - 256);
+        Item.byId[STONE_BRICKS.id] = new ItemStoneBrick(Block.STONE_BRICKS.id - 256);
+        Item.byId[TRAP_DOOR.id] = new ItemTrapdoor(Block.TRAP_DOOR.id - 256);
+        Item.byId[IRON_TRAP_DOOR.id] = new ItemTrapdoor(Block.IRON_TRAP_DOOR.id - 256);
+        Item.byId[CLASSIC_WOOL.id] = new ItemClassicCloth(Block.CLASSIC_WOOL.id - 256);
+        
         for (int i = 0; i < 256; ++i) {
             if (byId[i] != null && Item.byId[i] == null) {
                 Item.byId[i] = new ItemBlock(i - 256);

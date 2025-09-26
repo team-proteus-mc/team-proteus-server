@@ -30,7 +30,7 @@ public class Packet130UpdateSign extends Packet {
         this.lines = new String[4];
 
         for (int i = 0; i < 4; ++i) {
-            this.lines[i] = a(datainputstream, 15);
+            this.lines[i] = a(datainputstream, 63);
         }
     }
 

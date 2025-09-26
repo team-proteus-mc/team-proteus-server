@@ -214,6 +214,23 @@ public final class CraftServer implements Server {
 
         return players;
     }
+    
+    @SuppressWarnings("unchecked")
+    public Player[] getVisiblePlayers() {
+        List<EntityPlayer> online = server.players;
+        List<Player> visible = new ArrayList<Player>();
+        int jj = 0;
+        for (int i = 0; i < online.size(); i++) {
+        	if (!online.get(i).netServerHandler.getPlayer().isPlayerVanished()) {
+        		visible.add(online.get(i).netServerHandler.getPlayer());
+        	}
+        }
+        Player[] players = new Player[visible.size()];
+        for (int i = 0; i < players.length; i++) {
+        	players[i] = visible.get(i);
+        }
+        return players;
+    }
 
     public Player getPlayer(final String name) {
         Player[] players = getOnlinePlayers();

@@ -481,7 +481,7 @@ public abstract class EntityHuman extends EntityLiving {
                         }
                         this.world.getServer().getPluginManager().callEvent(event);
 
-                        if (event.isCancelled()) {
+                        if (event.isCancelled() || entitywolf1.isSitting()) {
                             continue;
                         }
                         // CraftBukkit end
@@ -527,6 +527,11 @@ public abstract class EntityHuman extends EntityLiving {
 
     public ItemStack G() {
         return this.inventory.getItemInHand();
+    }
+    
+    public boolean canSilk() {
+    	Item G = (G() != null ? G().getItem() : null);
+    	return G != null && G instanceof ItemTool && ((ItemTool)G).a == EnumToolMaterial.GOLD;
     }
 
     public void H() {

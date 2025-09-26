@@ -59,4 +59,9 @@ public class TileEntityNote extends TileEntity {
             world.playNote(i, j, k, b0, this.note);
         }
     }
+    
+    @Override
+    public Packet f() {
+        return new Packet133SetNote(this.x, this.y, this.z, this.note);
+    }
 }

@@ -22,6 +22,7 @@ import java.util.UUID;
 
 public class CraftPlayer extends CraftHumanEntity implements Player {
     private Set<UUID> hiddenPlayers = new HashSet<UUID>();
+    private boolean isVanished = false;
 
     public CraftPlayer(CraftServer server, EntityPlayer entity) {
         super(server, entity);
@@ -437,4 +438,14 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
             nsh.sendPacket(packet);
         }
     }
+
+	@Override
+	public boolean isPlayerVanished() {
+		return this.isVanished;
+	}
+
+	@Override
+	public void setPlayerVanished(boolean bool) {
+		this.isVanished = bool;
+	}
 }

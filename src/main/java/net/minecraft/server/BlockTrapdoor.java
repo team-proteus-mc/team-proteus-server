@@ -36,8 +36,11 @@ public class BlockTrapdoor extends Block {
 
     public void c(int i) {
         float f = 0.1875F;
-
-        this.a(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
+        if (e(i)) {
+        	this.a(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
+        } else {
+        	this.a(0.0F, 1.0F - f, 0.0F, 1.0F, 1.0F, 1.0F);
+        }
         if (d(i)) {
             if ((i & 3) == 0) {
                 this.a(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
@@ -130,25 +133,6 @@ public class BlockTrapdoor extends Block {
     }
 
     public void postPlace(World world, int i, int j, int k, int l) {
-        byte b0 = 0;
-
-        if (l == 2) {
-            b0 = 0;
-        }
-
-        if (l == 3) {
-            b0 = 1;
-        }
-
-        if (l == 4) {
-            b0 = 2;
-        }
-
-        if (l == 5) {
-            b0 = 3;
-        }
-
-        world.setData(i, j, k, b0);
         doPhysics(world, i, j, k, Block.REDSTONE_WIRE.id); // CraftBukkit
     }
 /*
@@ -180,5 +164,9 @@ public class BlockTrapdoor extends Block {
 */
     public static boolean d(int i) {
         return (i & 4) != 0;
+    }
+
+    public static boolean e(int i) {
+    	return (i & 8) == 0;
     }
 }

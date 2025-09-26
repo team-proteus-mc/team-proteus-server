@@ -685,4 +685,12 @@ public class ServerConfigurationManager {
         entityplayer.updateInventory(entityplayer.defaultContainer);
         entityplayer.C();
     }
+    
+    public String getJoinMsg() {
+    	return this.msgPlayerJoin;
+    }
+    
+    public String getQuitMsg() {
+    	return this.msgPlayerLeave;
+    }
 }

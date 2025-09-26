@@ -6,7 +6,7 @@ public enum EnumToolMaterial {
     STONE("STONE", 1, 1, 131, 4.0F, 1), 
     IRON("IRON", 2, 2, 250, 6.0F, 2), 
     DIAMOND("EMERALD", 3, 3, 1561, 10.0F, 3), 
-    GOLD("GOLD", 4, 0, 96, 8.0F, 0);
+    GOLD("GOLD", 4, 2, 96, 8.0F, 2);
     private final int f;
     private final int g;
     private final float h;

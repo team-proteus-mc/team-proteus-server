@@ -46,7 +46,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     private double y;
     private double z;
     private boolean checkMovement = true;
-    private Map n = new HashMap();
+    private Map<Integer, Short> n = new HashMap<Integer, Short>();
     private boolean usingReleaseToBeta = false; //Project Poseidon - Create Variable
     private ConnectionType connectionType = ConnectionType.NORMAL; //Project Poseidon - Create Variable
     private int rawConnectionType = 0; //Project Poseidon - Create Variable
@@ -278,6 +278,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 d2 = this.player.locY;
                 d3 = this.player.locZ;
                 double d5 = 0.0D;
+                
 
                 d4 = 0.0D;
                 if (packet10flying.hasLook) {
@@ -408,7 +409,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             d8 = d4 * d4 + d6 * d6 + d7 * d7;
             boolean flag1 = false;
 
-            if (d8 > 0.0625D && !this.player.isSleeping()) {
+            if (d8 > 0.0625D && !this.player.isSleeping() && !this.player.bt) {
                 flag1 = true;
                 a.warning(this.player.name + " moved wrongly!");
                 System.out.println("Got position " + d1 + ", " + d2 + ", " + d3);
@@ -817,7 +818,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
         String s = packet3chat.message;
 
-        if (s.length() > 100) {
+        if (s.length() > 256) {
             this.disconnect("Chat message too long");
         } else {
             s = s.trim();
@@ -861,7 +862,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
     }
 
     private void handleCommand(String s) {
-        if (s.equals("/nc") || s.equals("/noclip")) {
+        if (s.trim().equals("/nc") || s.trim().equals("/noclip")) {
             if (this.minecraftServer.serverConfigurationManager.isOp(this.player.name)) {
                 this.player.bt = !this.player.bt;
                 this.player.netServerHandler.sendPacket(new zzx("true", "§aToggled no-clip :" + (this.player.bt ? "on!" : "off!")));
@@ -1128,7 +1129,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 this.n.put(Integer.valueOf(this.player.activeContainer.windowId), Short.valueOf(packet102windowclick.d));
                 this.player.netServerHandler.sendPacket(new Packet106Transaction(packet102windowclick.a, packet102windowclick.d, false));
                 this.player.activeContainer.a(this.player, false);
-                ArrayList arraylist = new ArrayList();
+                ArrayList<ItemStack> arraylist = new ArrayList<ItemStack>();
 
                 for (int i = 0; i < this.player.activeContainer.e.size(); ++i) {
                     arraylist.add(((Slot) this.player.activeContainer.e.get(i)).getItem());
@@ -1148,7 +1149,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
 
         if (this.player.dead) return; // CraftBukkit
 
-        Short oshort = (Short) this.n.get(Integer.valueOf(this.player.activeContainer.windowId));
+        Short oshort = this.n.get(Integer.valueOf(this.player.activeContainer.windowId));
 
         if (oshort != null && packet106transaction.b == oshort.shortValue() && this.player.activeContainer.windowId == packet106transaction.a && !this.player.activeContainer.c(this.player)) {
             this.player.activeContainer.a(this.player, true);
@@ -1186,7 +1187,7 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
             for (j = 0; j < 4; ++j) {
                 boolean flag = true;
 
-                if (packet130updatesign.lines[j].length() > 15) {
+                if (packet130updatesign.lines[j].length() > 63) {
                     flag = false;
                 } else {
                     for (i = 0; i < packet130updatesign.lines[j].length(); ++i) {
@@ -1225,28 +1226,6 @@ public class NetServerHandler extends NetHandler implements ICommandListener {
                 worldserver.notify(j, k, i);
             }
         }
-    }
-    
-    @Override
-    public void a(Packet244PlayerStance p) {
-        float f;
-        this.player.smartMovingHeight = f = this.processStatePacket(p.stance, p.height);
-        this.minecraftServer.serverConfigurationManager.sendPacketNearby(this.player, this.player.locX, this.player.locY, this.player.locZ, 128.0, ((WorldServer)this.player.world).dimension, p);
-    }
-
-    private float processStatePacket(int state, float height) {
-        int actualFeetClimbType = state & 0x1F;
-        int actualHandsClimbType = (state >>>= 4) & 0x1F;
-        boolean _isJumping = ((state >>>= 4) & 1) != 0;
-        boolean isDiving = ((state >>>= 1) & 1) != 0;
-        boolean isDipping = ((state >>>= 1) & 1) != 0;
-        boolean isSwimming = ((state >>>= 1) & 1) != 0;
-        boolean isCrawlClimbing = ((state >>>= 1) & 1) != 0;
-        boolean isCrawling = ((state >>>= 1) & 1) != 0;
-        boolean isClimbing = ((state >>>= 1) & 1) != 0;
-        boolean isSmall = ((state >>>= 1) & 1) != 0;
-        float heightOffset = isSmall ? -1.0f : 0.0f;
-        return 1.8f + heightOffset;
     }
 
     public boolean c() {

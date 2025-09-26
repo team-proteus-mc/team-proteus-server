@@ -146,17 +146,20 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
                 if (furnaceBurnEvent.isCancelled()) {
                     return;
                 }
-
                 this.ticksForCurrentFuel = furnaceBurnEvent.getBurnTime();
                 this.burnTime += this.ticksForCurrentFuel;
                 if (this.burnTime > 0 && furnaceBurnEvent.isBurning()) {
                     // CraftBukkit end
                     flag1 = true;
                     if (this.items[1] != null) {
-                        --this.items[1].count;
-                        if (this.items[1].count == 0) {
-                            this.items[1] = null;
-                        }
+                    	if (this.items[1].id != Item.LAVA_BUCKET.id) {
+                            --this.items[1].count;
+                            if (this.items[1].count == 0) {
+                                this.items[1] = null;
+                            }
+                    	} else {
+                    		this.items[1] = new ItemStack(Item.BUCKET.id, 1, 0);
+                    	}
                     }
                 }
             }
@@ -189,7 +192,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
         if (this.items[0] == null) {
             return false;
         } else {
-            ItemStack itemstack = FurnaceRecipes.getInstance().a(this.items[0].getItem().id);
+            ItemStack itemstack = FurnaceRecipes.getInstance().a(this.items[0].getItem().id, this.items[0].getData());
 
             // CraftBukkit - consider resultant count instead of current count
             return itemstack == null ? false : (this.items[2] == null ? true : (!this.items[2].doMaterialsMatch(itemstack) ? false : (this.items[2].count + itemstack.count <= this.getMaxStackSize() && this.items[2].count < this.items[2].getMaxStackSize() ? true : this.items[2].count + itemstack.count <= itemstack.getMaxStackSize())));
@@ -198,7 +201,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 
     public void burn() {
         if (this.canBurn()) {
-            ItemStack itemstack = FurnaceRecipes.getInstance().a(this.items[0].getItem().id);
+            ItemStack itemstack = FurnaceRecipes.getInstance().a(this.items[0].getItem().id, this.items[0].getData());
 
             // CraftBukkit start
             CraftItemStack source = new CraftItemStack(this.items[0]);

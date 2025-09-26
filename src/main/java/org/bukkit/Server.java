@@ -79,6 +79,8 @@ public interface Server {
      * @return An array of Players that are currently online
      */
     public Player[] getOnlinePlayers();
+    
+    public Player[] getVisiblePlayers();
 
     /**
      * Get the maximum amount of players which can login to this server

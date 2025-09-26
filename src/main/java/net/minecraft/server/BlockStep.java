@@ -57,23 +57,6 @@ public class BlockStep extends Block {
         return this.b;
     }
 
-    public void c(World world, int i, int j, int k) {
-        if (this != Block.STEP) {
-            super.c(world, i, j, k);
-        }
-
-        int l = world.getTypeId(i, j - 1, k);
-        int i1 = world.getData(i, j, k);
-        int j1 = world.getData(i, j - 1, k);
-
-        if (i1 == j1) {
-            if (l == STEP.id) {
-                world.setTypeId(i, j, k, 0);
-                world.setTypeIdAndData(i, j - 1, k, Block.DOUBLE_STEP.id, i1);
-            }
-        }
-    }
-
     public int a(int i, Random random) {
         return Block.STEP.id;
     }
@@ -83,7 +66,7 @@ public class BlockStep extends Block {
     }
 
     protected int a_(int i) {
-        return i;
+        return i & 7;
     }
 
     public boolean b() {

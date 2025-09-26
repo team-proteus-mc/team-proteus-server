@@ -13,8 +13,8 @@ menu.mods=Mods and Texture Packs
 menu.options=Options...
 menu.quit=Quit Game
 
-server.version=Team Proteus Client v1.3.9
-server.rawversion=139
+server.version=Team Proteus Client v1.4.5
+server.rawversion=145
 disconnect.incompatible=Incompatible Client! Please use
 
 selectWorld.title=Select World

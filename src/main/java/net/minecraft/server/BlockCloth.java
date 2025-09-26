@@ -2,8 +2,8 @@ package net.minecraft.server;
 
 public class BlockCloth extends Block {
 
-    public BlockCloth() {
-        super(35, 64, Material.CLOTH);
+    public BlockCloth(int i) {
+        super(i, 64, Material.CLOTH);
     }
 
     public int a(int i, int j) {

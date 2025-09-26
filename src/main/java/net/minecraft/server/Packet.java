@@ -97,7 +97,7 @@ public abstract class Packet {
             }
 
             if (flag && !serverPacketIdList.contains(Integer.valueOf(i)) || !flag && !clientPacketIdList.contains(Integer.valueOf(i))) {
-                System.out.println("Bad packet id: " + i); //Project Poseidon
+                //System.out.println("Bad packet id: " + i); //Project Poseidon
                 return null; //Project Poseidon
                 //throw new IOException("Bad packet id " + i); //Project Poseidon - Comment Out
             }
@@ -244,7 +244,6 @@ public abstract class Packet {
         a(132, true, true, Packet132SetMobSpawner.class);
         a(133, true, true, Packet133SetNote.class);
         a(200, true, false, Packet200Statistic.class);
-        a(244, true, true, Packet244PlayerStance.class);
         a(255, true, true, Packet255KickDisconnect.class);
         packetClassToIdMap.put(ArtificialPacket53BlockChange.class, 53); //Poseidon - Artificial Block Change Packet
         e = new HashMap<Integer, PacketCounter>();

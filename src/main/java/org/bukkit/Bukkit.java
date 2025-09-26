@@ -65,6 +65,10 @@ public final class Bukkit {
     public static Player[] getOnlinePlayers() {
         return server.getOnlinePlayers();
     }
+    
+    public static Player[] getVisiblePlayers() {
+        return server.getVisiblePlayers();
+    }
 
     public static int getMaxPlayers() {
         return server.getMaxPlayers();

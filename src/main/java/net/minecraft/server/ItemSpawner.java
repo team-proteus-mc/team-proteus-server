@@ -55,25 +55,10 @@ extends Item {
         if (world.a(this.id, i, j, k, false, l)) {
             Block block = Block.byId[this.id];
             CraftBlockState replacedBlockState = CraftBlockState.getBlockState(world, i, j, k);
-            CraftBlockState blockStateBelow = null;
-            boolean eventUseBlockBelow = false;
-            if (!(world.getTypeId(i, j - 1, k) != Block.STEP.id && world.getTypeId(i, j - 1, k) != Block.DOUBLE_STEP.id || itemstack.id != Block.DOUBLE_STEP.id && itemstack.id != Block.STEP.id)) {
-                blockStateBelow = CraftBlockState.getBlockState(world, i, j - 1, k);
-                eventUseBlockBelow = itemstack.id == Block.STEP.id && blockStateBelow.getTypeId() == Block.STEP.id;
-                boolean bl = eventUseBlockBelow;
-            }
             if (world.setRawTypeIdAndData(i, j, k, this.id, 0)) {
-                BlockPlaceEvent event = CraftEventFactory.callBlockPlaceEvent(world, entityhuman, (BlockState)(eventUseBlockBelow ? blockStateBelow : replacedBlockState), clickedX, clickedY, clickedZ, block);
+                BlockPlaceEvent event = CraftEventFactory.callBlockPlaceEvent(world, entityhuman, (BlockState)(replacedBlockState), clickedX, clickedY, clickedZ, block);
                 if (event.isCancelled() || !event.canBuild()) {
-                    if (blockStateBelow != null) {
-                        world.setTypeIdAndData(i, j, k, replacedBlockState.getTypeId(), replacedBlockState.getRawData());
-                        world.setTypeIdAndData(i, j - 1, k, blockStateBelow.getTypeId(), blockStateBelow.getRawData());
-                    } else {
-                        if (this.id == Block.ICE.id) {
-                            world.setTypeId(i, j, k, 20);
-                        }
-                        world.setTypeIdAndData(i, j, k, replacedBlockState.getTypeId(), replacedBlockState.getRawData());
-                    }
+                    world.setTypeIdAndData(i, j, k, replacedBlockState.getTypeId(), replacedBlockState.getRawData());
                     return true;
                 }
                 world.update(i, j, k, this.id);

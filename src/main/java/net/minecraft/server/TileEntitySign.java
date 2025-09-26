@@ -22,8 +22,8 @@ public class TileEntitySign extends TileEntity {
 
         for (int i = 0; i < 4; ++i) {
             this.lines[i] = nbttagcompound.getString("Text" + (i + 1));
-            if (this.lines[i].length() > 15) {
-                this.lines[i] = this.lines[i].substring(0, 15);
+            if (this.lines[i].length() > 63) {
+                this.lines[i] = this.lines[i].substring(0, 63);
             }
         }
     }
@@ -35,8 +35,8 @@ public class TileEntitySign extends TileEntity {
             astring[i] = this.lines[i];
 
             // CraftBukkit start - limit sign text to 15 chars per line
-            if (this.lines[i].length() > 15) {
-                astring[i] = this.lines[i].substring(0, 15);
+            if (this.lines[i].length() > 63) {
+                astring[i] = this.lines[i].substring(0, 63);
             }
             // CraftBukkit end
         }

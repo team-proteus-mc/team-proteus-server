@@ -112,8 +112,10 @@ public enum Material {
     TRAP_DOOR(96, TrapDoor.class),
     IRON_TRAP_DOOR(97, TrapDoor.class),
     STONE_BRICKS(98),
-    BRICK_STAIRS(99),
-    STONE_BRICK_STAIRS(100),
+    BRICK_STAIRS(99, Stairs.class),
+    STONE_BRICK_STAIRS(100, Stairs.class),
+    CLASSIC_WOOL(101),
+    OLD_COBBLESTONE_STAIRS(102, Stairs.class),
     // ----- Item Separator -----
     IRON_SPADE(256, 1, 250),
     IRON_PICKAXE(257, 1, 250),

@@ -154,7 +154,7 @@ public abstract class Container {
 
                             slot1.a(inventoryplayer.j());
                         } else if (slot1.isAllowed(itemstack3)) {
-                            if (itemstack2.id == itemstack3.id && (!itemstack2.usesData() || itemstack2.getData() == itemstack3.getData())) {
+                            if (itemstack2.id == itemstack3.id && (!(itemstack2.usesData() || !itemstack2.isStackable()) || itemstack2.getData() == itemstack3.getData())) {
                                 k = j == 0 ? itemstack3.count : 1;
                                 if (k > slot1.d() - itemstack2.count) {
                                     k = slot1.d() - itemstack2.count;

@@ -21,6 +21,6 @@ public class ItemShears extends Item {
     }
 
     public float a(ItemStack itemstack, Block block) {
-        return block.id != Block.WEB.id && block.id != Block.LEAVES.id ? (block.id == Block.WOOL.id ? 5.0F : super.a(itemstack, block)) : 15.0F;
+        return block.id != Block.WEB.id && block.id != Block.LEAVES.id ? ((block.id == Block.WOOL.id || block.id == Block.CLASSIC_WOOL.id) ? 5.0F : super.a(itemstack, block)) : 15.0F;
     }
 }

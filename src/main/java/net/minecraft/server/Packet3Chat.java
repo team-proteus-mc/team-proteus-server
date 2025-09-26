@@ -21,7 +21,7 @@ public class Packet3Chat extends Packet {
     }
 
     public void a(DataInputStream datainputstream) throws IOException { // CraftBukkit
-        this.message = a(datainputstream, 119);
+        this.message = a(datainputstream, 256);
     }
 
     public void a(DataOutputStream dataoutputstream) throws IOException { // CraftBukkit

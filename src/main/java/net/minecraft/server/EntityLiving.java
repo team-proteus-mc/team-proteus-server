@@ -134,7 +134,6 @@ public abstract class EntityLiving extends Entity {
         }
 
         int i;
-
         if (this.T() && this.a(Material.WATER) && !this.b_()) {
             --this.airTicks;
             if (this.airTicks == -20) {

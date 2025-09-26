@@ -25,7 +25,6 @@ public class ItemStep extends ItemBlock {
         int var9 = var3.getData(xPos, yPos, zPos);
         int yOff = 0;
         int sneakside = var7 > 1 ? (var2.hity > 0.5 ? 8 : 0) : (1 - var7) * 8 & 8;
-        int n = sneakside;
         if (var8 != Block.SNOW.id && var8 != Block.LONG_GRASS.id) {
             if (var7 == 0) {
                 --yOff;

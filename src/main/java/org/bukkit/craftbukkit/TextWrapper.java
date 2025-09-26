@@ -58,7 +58,7 @@ public class TextWrapper {
                 continue;
             } else {
                 // Sadly needed as the allowedChars string misses the first
-                index += 32;
+                //index += 32; // Not anymore!!!!!
             }
 
             // Find the width
